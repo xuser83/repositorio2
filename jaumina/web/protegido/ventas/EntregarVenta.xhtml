@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="pageTitle">Entregar Venta</ui:define>
+	<ui:define name="pageHeader"></ui:define>
+	<ui:define name="body">		
+	
+	<h:form id="form1">
+	<p:panelGrid columns="2"  style="width: 1300px">
+		<f:facet name="header">Modificar o Entregar Venta - Ingrese Nro.Venta o Ingrese el Cliente y fecha desde y fecha hasta, luego presione en el lápiz.</f:facet>
+
+<h:panelGroup>
+	<p:outputLabel value="Nro. Venta:" />
+	<p:inputText value="#{entregarVentaBean.venta1.id}" style="width: 80px"/>
+	<p:commandButton icon="ui-icon-pencil"
+actionListener="#{entregarVentaBean.consultarVenta1}" 
+update="form1, :fcargarpedido2, :formpedidos, :formtablaventas" />
+	</h:panelGroup>
+	
+	<h:panelGroup>
+	<p:outputLabel value="Teléfono: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
+	<p:inputText value="#{entregarVentaBean.telefonoCliente}"
+	id="inptelcli" >
+	</p:inputText>
+	</h:panelGroup>
+	
+	<h:panelGroup>
+	<p:outputLabel value="Cliente: &nbsp;" />
+  <p:autoComplete id="autocliente"
+		value="#{entregarVentaBean.cliente}"
+		itemValue="#{cliente}" 		
+		inputStyle="width: 400px"
+		completeMethod="#{entregarVentaBean.completeCliente}" 	
+		var="cliente" 
+		itemLabel="#{cliente.nombres.concat(entregarVentaBean.espacio).concat(cliente.apellidos)}" >
+<p:watermark value="Buscar por nombre" for="autocliente"/>
+<p:ajax event="blur" listener="#{entregarVentaBean.elegirClienteAutoComplete}"/>
+</p:autoComplete>
+	</h:panelGroup>
+	
+	<h:panelGroup>
+	 <p:outputLabel value="Dir a Entregar:" />
+  <p:inputText value="#{entregarVentaBean.direccionAEntregar}" style="width: 400px"
+  id="inpdircli" />   
+ </h:panelGroup>
+	
+ <h:panelGroup>
+ <p:outputLabel value="Delivery:" />
+  <p:inputText style="width: 400px"
+  id="inpdeli" />
+	</h:panelGroup>
+	
+	<h:panelGroup>
+	
+	<p:outputLabel value="Desde:"/>
+	<p:calendar value="#{entregarVentaBean.fechaDesde}"/>
+	<p:outputLabel value="Hasta:"/>
+	<p:calendar value="#{entregarVentaBean.fechaHasta}"/>
+	
+	</h:panelGroup>
+	
+	</p:panelGrid>
+	</h:form>
+	
+	<h:form id="fcargarpedido2">
+<p:panelGrid columns="8"  style="width: 1300px">
+
+<h:panelGroup>
+<p:outputLabel value="Código: " />	
+<p:inputText value="#{entregarVentaBean.productoSeleccionado.codigo}" 
+style="width: 80px">
+<p:ajax event="blur" listener="#{entregarVentaBean.buscarProductoPorCodigo}"
+update="productobuscado, inputprecioventa"/>	
+</p:inputText>
+</h:panelGroup>
+
+<h:panelGroup>
+<p:outputLabel value="Producto: "/>
+<p:inputText value="#{entregarVentaBean.productoSeleccionado.nombrecorto}"
+disabled="true" id="productobuscado" style="width: 130px; font-size: 13px"/>
+</h:panelGroup>
+
+<h:panelGroup>
+<p:outputLabel value="Precio: "/>
+<p:inputNumber decimalSeparator="," thousandSeparator="."
+id="inputprecioventa" autocomplete="true" decimalPlaces="0"
+ value="#{entregarVentaBean.productoSeleccionado.precioventa}"
+ required="false" disabled="true" size="8"/>
+</h:panelGroup>
+
+<h:panelGroup>
+<p:outputLabel value="Cantidad:" />
+<p:inputText value="#{entregarVentaBean.cantidad}" style="width: 80px">	
+</p:inputText>
+</h:panelGroup>
+
+<h:panelGroup>
+		<p:outputLabel value="Destino: " />
+  <p:selectOneMenu id="somdestino" 
+  value="#{entregarVentaBean.destino}" >
+   <f:selectItem itemLabel="Delivery" itemValue="d" />
+   <f:selectItem itemLabel="Mesa" itemValue="m" />
+   <f:selectItem itemLabel="Barra" itemValue="b" />
+  </p:selectOneMenu> 		
+ </h:panelGroup>
+ </p:panelGrid>
+	
+  <p:panelGrid columns="2" style="width: 1300px">
+<p:outputLabel value="Salsa:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" 
+id="inpsalsa"/> 
+<h:panelGroup>
+		<p:inputText id="itsalsa" style="width: 700px"
+		value="#{entregarVentaBean.salsa}" >		
+</p:inputText>
+<p:commandButton value="Agregar" actionListener="#{entregarVentaBean.agregar}" 
+update="fcargarpedido2, :formpedidos" > 
+	
+	</p:commandButton>
+
+</h:panelGroup>
+		</p:panelGrid>	
+</h:form>
+
+<h:form id="formpedidos">
+	<p:dataTable value="#{entregarVentaBean.listaDetalle}"
+	rendered="#{not empty entregarVentaBean.listaDetalle}" var="detalle" id="tabla"
+	style="width: 1300px" scrollable="true">
+	
+	<f:facet name="header">Pedidos</f:facet>
+
+<p:column 	headerText="Nro. Venta"
+width="10"	style="font-size: 13px">
+<h:outputLabel value="#{detalle.venta.id}" style="font-size: 12px"/>
+ </p:column>
+
+<p:column 	headerText="Cod. Prod."
+width="20"	style="font-size: 13px">
+<h:outputLabel value="#{detalle.productosVenta.codigo}" style="font-size: 12px"/>
+ </p:column> 
+
+<p:column 	headerText="Producto"
+width="40"	style="font-size: 13px">
+<h:outputLabel value="#{detalle.productosVenta.nombrecorto}" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column 	headerText="Cant."
+width="10"	style="font-size: 13px">
+<h:outputLabel value="#{detalle.cantidad}" style="font-size: 12px"/>
+ </p:column> 
+  
+  <p:column 	headerText="Precio"
+width="20"	style="font-size: 13px">
+<h:outputLabel value="#{detalle.costo}" style="font-size: 12px"/>
+ </p:column> 
+ 
+ <p:column 	headerText="Salsa"
+width="20"	style="font-size: 13px">
+<h:outputLabel value="#{detalle.salsa}" style="font-size: 12px"/>
+ </p:column> 
+ 
+ <p:column 	headerText="Direccón"	
+ width="180"  style="font-size: 13px">
+<h:outputLabel value="#{detalle.venta.direccionAEntregar}" style="font-size: 12px"/>
+ </p:column> 
+ 
+ <p:column 	headerText="Cliente"
+width="120"	style="font-size: 13px">
+<h:outputLabel 
+value="#{detalle.venta.cliente.nombres.concat(registroVentas1.espacio).concat(detalle.venta.cliente.apellidos)}" 
+style="font-size: 12px"/>
+ </p:column> 
+ 
+ <p:column 	headerText="Dest."
+width="10"	style="font-size: 13px">
+<h:outputLabel value="#{detalle.venta.destino}" style="font-size: 12px"/>
+ </p:column>  
+ 
+  <p:column headerText="Entr" width="20"
+ style="font-size: 13px">
+ <p:commandButton  icon="ui-icon-cart" 
+ action="#{entregarVentaBean.entregar(detalle)}" update="formpedidos"
+ onclick="if (!confirm('Desea entregar este pedido?')) return false;"/>
+ </p:column>
+ 
+ <p:column headerText="Elim" width="20"
+ style="font-size: 13px">
+ <p:commandButton  icon="ui-icon-trash" 
+ actionListener="#{entregarVentaBean.eliminarDetalle(detalle)}" 
+ update="formpedidos" 
+ onclick="if (!confirm('Desea eliminar este pedido?')) return false;"/>
+ </p:column>
+  
+ </p:dataTable>
+ 
+		</h:form>
+
+<h:form id="formtablaventas">
+	<p:dataTable value="#{entregarVentaBean.listaUltimasVentasDelCliente}"
+	rendered="#{not empty entregarVentaBean.listaUltimasVentasDelCliente}" var="ventaCliente" id="tablaventas"
+	style="width: 600px" scrollable="true">
+	
+	<f:facet name="header">Ventas del Cliente</f:facet>
+
+<p:column 	headerText="Nro. Venta"
+width="50"	style="font-size: 13px">
+<h:outputLabel value="#{ventaCliente.id}" style="font-size: 12px"/>
+ </p:column>
+
+<p:column 	headerText="Cliente" style="font-size: 13px">
+<h:outputLabel 
+value="#{ventaCliente.cliente.nombres.concat(entregarVentaBean.espacio).concat(ventaCliente.cliente.apellidos)}" 
+style="font-size: 12px"/>
+ </p:column>
+  
+ </p:dataTable>
+ 
+		</h:form>
+	
+	</ui:define>
+	</ui:composition>
+	</html>
+	

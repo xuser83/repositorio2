@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	<title>Inicio Jaumina</title>
+<h:outputStylesheet name="index1.css" library="css" />	
+
+	</h:head>
+
+
+
+	<h:body id="principal">
+<div id="cuadro" >
+
+	<h:form>
+<p:messages autoUpdate="true"
+showDetail="true"/>
+
+	<h:panelGrid columns="2">
+<p:outputLabel for="txtUsuario" value="Usuario"
+class="out"/>
+<p:inputText id="txtUsuario" required="true"
+value="#{indexController.usuario.username}"/>
+
+<p:outputLabel for="txtClave" value="Clave"
+class="out"/>	
+<p:password id="txtClave" required="true" inline="true"
+value="#{indexController.usuario.clave}" feedback="true"
+goodLabel="Segura" strongLabel="Muy Segura" weakLabel="Débil"
+ promptLabel="Ingrese su Contraseña"/>
+<h:column />
+
+<p:commandButton icon="ui-icon-key" value="Iniciar Sessión"
+action="#{indexController.iniciarSesion}"/>
+</h:panelGrid>
+<p:separator />
+</h:form>
+</div>
+</h:body>
+	
+	</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="pageTitle">Pedidos</ui:define>
+	<ui:define name="pageHeader"></ui:define>
+	<ui:define name="body">	
+	
+	
+ <h:form id="formclientes"> 
+ 
+    <p:dataTable value="#{registroVentas.listaClientes}" var="cliente" 
+rendered="#{registroVentas.mostrarFormularioCliente}"
+paginator="true" rows="8" id="tablaclientes" >
+
+<f:facet name="header">Clientes</f:facet>
+
+<p:column 	headerText="Id"
+			width="40"	>
+ <h:inputText value="#{cliente.id}" disabled="true"/>
+ </p:column>
+ 
+ <p:column 	headerText="Nombres" width="251">
+ <h:inputText value="#{cliente.nombres}" disabled="true"
+ style="width: 250px;"/>
+ </p:column>
+ 
+ <p:column 	headerText="Apellidos" width="251">
+ <h:inputText value="#{cliente.apellidos}" disabled="true"
+ style="width: 250px;"/>
+ </p:column>
+ 
+ <p:column headerText="Elegir" width="50"
+ style="font-size: 13px">
+ <p:commandButton  icon="ui-icon-check"
+ actionListener="#{registroVentas.elegirCliente(cliente)}" update="formclientes, :formcargarpedido"/>
+ </p:column>
+
+</p:dataTable>
+ 
+</h:form>
+
+<h:form id="formcantpedido">
+<p:panelGrid rendered="#{registroVentas.mostrarFormularioCantPedido}">
+<p:outputLabel value="Nro. Pedido: "/>
+<p:inputText value="#{registroVentas.nroPedido}"/>
+<p:commandButton value="Cargar" actionListener="#{registroVentas.cargarPedido}"
+update="formcantpedido, :formpedidos"/>
+</p:panelGrid>
+ <p:dataTable value="#{registroVentas.listaProductos}" var="prodventa" 
+rendered="#{registroVentas.mostrarFormularioCantPedido}"
+paginator="true" rows="20" style="width: 820px" id="dpedidos">
+
+<f:facet name="header">Pedido de Productos</f:facet>
+
+<p:column 	headerText="Nombre" width= "300"
+style="font-size: 13px">
+<h:outputLabel value="#{prodventa.nombre}" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column 	headerText="Nombre" width= "90"
+style="font-size: 13px">
+<h:outputLabel value="#{prodventa.nombrecorto}" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column 	headerText="Cantidad" width="30"
+ style="font-size: 13px">
+<h:outputLabel value="#{prodventa.cantPedido}" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column width="20" headerText="Cerrar" style="font-size: 13px">
+ <p:commandButton actionListener="#{registroVentas.cerrarFormCantPedido}"
+ update="formcantpedido" value="x"/>
+ </p:column>
+ 
+ </p:dataTable>
+</h:form>
+ 
+ <h:form id="formcargarpedido">
+	<p:growl autoUpdate="false" showDetail="true"
+ id="mensajes"/>
+ 	<p:panelGrid columns="5"  style="width: 1300px">
+	<f:facet name="header">Venta - Pedido Nro: #{registroVentas.nroPedido}</f:facet>	
+	
+<p:outputLabel value="Cliente: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;" />
+  <h:panelGroup>
+		<p:inputText id="itcliente" style="width: 400px"
+		value="#{registroVentas.cliente}" >	
+<p:ajax event="blur" listener="#{registroVentas.correrAjax}"/>	
+</p:inputText>
+<p:commandButton icon="ui-icon-search"
+actionListener="#{registroVentas.buscarCliente}" update=":formclientes"/>
+<p:commandButton icon="ui-icon-refresh"
+actionListener="#{registroVentas.nuevoCliente}" 
+update="itcliente, inptelcli, inpdircli, :fcargarpedido2:itsalsa"/>
+</h:panelGroup>	
+<p:outputLabel value="Teléfono: "/>
+	<p:inputText value="#{registroVentas.telefonoCliente}"
+	id="inptelcli">
+	</p:inputText>
+</p:panelGrid>
+
+  <p:panelGrid columns="2" style="width: 1300px">
+  <p:outputLabel value="Dir a Entregar:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;" />
+  <p:inputText value="#{registroVentas.direccionAEntregar}" style="width: 980px"
+  id="inpdircli">   
+  <p:ajax event="blur" listener="#{registroVentas.correrAjax}"/>
+  </p:inputText>
+ 		</p:panelGrid>
+
+ </h:form>
+  
+<h:form id="fcargarpedido2">
+<p:panelGrid columns="8"  style="width: 1300px">
+
+<h:panelGroup>
+<p:outputLabel value="Código: " />	
+<p:inputText value="#{registroVentas.productoSeleccionado.codigo}" 
+style="width: 80px">
+<p:ajax event="blur" listener="#{registroVentas.buscarProductoPorCodigo}"
+update="productobuscado, inputprecioventa"/>	
+</p:inputText>
+</h:panelGroup>
+
+<h:panelGroup>
+<p:outputLabel value="Producto: "/>
+<p:inputText value="#{registroVentas.productoBuscado.nombrecorto}"
+disabled="true" id="productobuscado" style="width: 130px; font-size: 13px"/>
+</h:panelGroup>
+
+<h:panelGroup>
+<p:outputLabel value="Precio: "/>
+<p:inputNumber decimalSeparator="," thousandSeparator="."
+id="inputprecioventa" autocomplete="true" decimalPlaces="0"
+ value="#{registroVentas.productoBuscado.precioventa}"
+ required="false" disabled="true" size="8"/>
+</h:panelGroup>
+
+<h:panelGroup>
+<p:outputLabel value="Cantidad:" />
+<p:inputText value="#{registroVentas.cantidad}" style="width: 80px">
+<p:ajax event="blur" listener="#{registroVentas.correrAjax}"/>	
+</p:inputText>
+</h:panelGroup>
+
+<h:panelGroup>
+		<p:outputLabel value="Destino: " />
+  <p:selectOneMenu id="somdestino" 
+  value="#{registroVentas.destino}" >
+   <f:selectItem itemLabel="Delivery" itemValue="d" />
+   <f:selectItem itemLabel="Mesa" itemValue="m" />
+   <f:selectItem itemLabel="Barra" itemValue="b" />
+  </p:selectOneMenu> 		
+ </h:panelGroup>
+ </p:panelGrid>
+	
+  <p:panelGrid columns="2" style="width: 1300px">
+<p:outputLabel value="Salsa:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" 
+id="inpsalsa"/> 
+<h:panelGroup>
+		<p:inputText id="itsalsa" style="width: 700px"
+		value="#{registroVentas.salsa}" >	
+<p:ajax event="blur" listener="#{registroVentas.correrAjax}"/>	
+</p:inputText>
+<p:commandButton value="Agregar" action="#{registroVentas.agregar}"
+	update=":formcantpedido, :formcargarpedido, fcargarpedido2, :formpedidos" />
+	<p:commandButton value="Cant Pedi" action="#{registroVentas.verCantPedidos}"
+	update=":formcantpedido" />
+</h:panelGroup>
+		</p:panelGrid>	
+</h:form>
+
+<h:form id="formpedidos">
+	<p:dataTable value="#{registroVentas.lista}"
+	rendered="#{not empty registroVentas.lista}" var="venta" id="tabla"
+	style="width: 1300px" scrollable="true">
+	
+	<f:facet name="header">Pedidos</f:facet>
+	
+<p:column 	headerText="Producto"
+width="60"	style="font-size: 13px">
+<h:outputLabel value="#{venta.productosVenta.nombrecorto}" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column 	headerText="Cant"
+width="21"	style="font-size: 13px">
+<h:outputLabel value="#{venta.cantidad}" style="font-size: 12px"/>
+</p:column>
+
+<p:column 	headerText="Salsa"
+width="101"	style="font-size: 13px">
+<h:outputLabel value="#{venta.salsa}" style="font-size: 12px"/>
+ </p:column>
+
+<p:column 	headerText="Des"
+width="21"	style="font-size: 13px">
+<h:outputLabel value="#{venta.destino}" style="font-size: 12px"/>
+ </p:column>
+
+ <p:column 	headerText="Cliente"
+width="180"	style="font-size: 13px">
+<h:outputLabel value="#{venta.cliente}" style="font-size: 12px"/>
+ </p:column>
+ 
+  <p:column 	headerText="Direccion"	style="font-size: 13px"
+  width="100">
+<h:outputLabel value="#{venta.direccionAEntregar}" style="font-size: 12px"/>
+</p:column>
+ 
+ <p:column 	headerText="Telefono"
+width="91"	style="font-size: 13px">
+<h:outputLabel value="#{venta.telefonoCliente}" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column headerText="Entr" width="20"
+ style="font-size: 13px">
+ <p:commandButton  icon="ui-icon-cart" 
+ actionListener="#{registroVentas.quitar(venta)}" update=":formcantpedido, formpedidos"/>
+ </p:column>
+ 
+ <p:column headerText="Elim" width="20"
+ style="font-size: 13px">
+ <p:commandButton  icon="ui-icon-trash" 
+ actionListener="#{registroVentas.cancelarVenta(venta)}" 
+ update=":formcantpedido, formpedidos" 
+ onclick="if (!confirm('Desea eliminar este pedido?')) return false;"/>
+ </p:column>
+  
+ </p:dataTable>
+ 
+		</h:form>
+		
+
+</ui:define>
+</ui:composition>
+
+</html>

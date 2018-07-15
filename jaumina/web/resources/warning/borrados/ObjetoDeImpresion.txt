@@ -1,0 +1,38 @@
+package jaumina.commons.util;
+
+import java.awt.Graphics;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.util.List;
+
+public class ObjetoDeImpresion implements Printable{
+	
+		
+private List<String> lista;
+	
+	public int print(Graphics g, PageFormat f, int pageIndex){
+if(pageIndex == 0){
+	
+	if(lista!= null && !lista.isEmpty()){
+		int horizontal = 100;
+		int vertical = 100;
+		for (String string : lista) {
+			g.drawString(string, horizontal, vertical);
+			vertical += 11;
+		}
+	}
+
+return PAGE_EXISTS;
+}else{
+return NO_SUCH_PAGE;
+}
+}
+
+	public List<String> getLista() {
+		return lista;
+	}
+
+	public void setLista(List<String> lista) {
+		this.lista = lista;
+	}
+}

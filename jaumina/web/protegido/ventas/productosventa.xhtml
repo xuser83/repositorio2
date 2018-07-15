@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+		
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="pageTitle">Productos Venta</ui:define>
+	<ui:define name="pageHeader"></ui:define>
+	<ui:define name="body">
+
+<h:form id="formedicion">
+
+<h:inputHidden value="#{productosVentaBean.productosVentaSeleccionado.id}"/>
+
+<p:growl autoUpdate="false" showDetail="true"
+ id="mensajes"/>
+
+<p:panelGrid columns="4" style="width: 1300px">
+<f:facet name="header">Productos Venta</f:facet>
+
+<p:outputLabel value="Nombre: "/>
+<p:inputText value="#{productosVentaBean.productosVentaSeleccionado.nombre}" style="width: 400px"
+required="true"
+requiredMessage="Debe completar nombre!"/>
+
+<p:outputLabel value="Código: "/>
+<p:inputText value="#{productosVentaBean.productosVentaSeleccionado.codigo}" style="width: 222px"
+required="true"
+requiredMessage="Debe completar código!"/>
+
+<p:outputLabel value="Nombre Corto: "/>
+<p:inputText value="#{productosVentaBean.productosVentaSeleccionado.nombrecorto}" required="true"
+requiredMessage="Debe completar nombre corto!"/>
+
+<p:outputLabel value="Precio Costo: "/>
+<p:inputNumber decimalSeparator="," thousandSeparator="."
+id="inputnumberpreciocosto" autocomplete="true" decimalPlaces="0"
+ value="#{productosVentaBean.productosVentaSeleccionado.preciocosto}"
+ required="true"
+requiredMessage="Debe completar precio costo!"
+style="width: 200px"/>
+
+<p:outputLabel value="Precio Venta: "/>
+<p:inputNumber decimalSeparator=","
+thousandSeparator="." autocomplete="true" decimalPlaces="0"
+value="#{productosVentaBean.productosVentaSeleccionado.precioventa}"
+required="true"
+requiredMessage="Debe completar nombre precio venta!"/>
+
+<p:commandButton value="Nuevo" actionListener="#{productosVentaBean.nuevo}"
+update="formedicion, mensajes, :lista" icon="ui-icon-disk"/>
+<p:commandButton value="Guardar" actionListener="#{productosVentaBean.guardar}"
+update="formedicion, mensajes, :lista" icon="ui-icon-disk"/>
+
+</p:panelGrid>
+
+</h:form>
+
+<h:form id="lista">
+
+<p:dataTable value="#{productosVentaBean.lista}" var="prodventa" 
+rendered="#{not empty productosVentaBean.lista}"
+paginator="true" rows="20" style="width: 1300px">
+
+<f:facet name="header">Lista Productos Venta</f:facet>
+
+<p:column 	headerText="Codigo"
+width="61"	style="font-size: 13px">
+<h:outputLabel value="#{prodventa.codigo}" style="font-size: 12px"/>
+ </p:column>
+
+<p:column 	headerText="Id"
+width="61"	style="font-size: 13px">
+<h:outputLabel value="#{prodventa.id}" style="font-size: 12px"/>
+ </p:column>
+
+<p:column 	headerText="Nombre" width= "405px"
+style="font-size: 13px">
+ <h:outputLabel value="#{prodventa.nombre}" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column 	headerText="Nombre Corto" width="100"
+ style="font-size: 13px">
+ <h:outputLabel value="#{prodventa.nombrecorto}" style="font-size: 12px"/>
+ </p:column>
+ 
+  <p:column 	headerText="Precio Costo" width="90"
+  style="font-size: 13px">
+ <p:inputNumber decimalSeparator="," thousandSeparator="."
+  value="#{prodventa.preciocosto}" readonly="true"
+   size="11" autocomplete="true" 
+ decimalPlaces="0" style="font-size: 12px"/>
+ </p:column>
+ 
+  <p:column 	headerText="Precio Venta" style="width: 151px; font-size: 13px" >
+ <p:inputNumber decimalSeparator="," thousandSeparator="."
+  value="#{prodventa.precioventa}" readonly="true"
+  autocomplete="true" decimalPlaces="0"
+ size="11" style="font-size: 12px"/>
+ </p:column>
+ 
+<p:column 	width="110" style="font-size: 13px">
+ <f:facet name="header">Acciones</f:facet>
+ 
+ <h:commandLink style="font-size: 13px">
+ Editar
+  <f:setPropertyActionListener 
+  target="#{productosVentaBean.productosVentaSeleccionado}" 
+  value="#{prodventa}" />
+ </h:commandLink>
+</p:column>
+
+</p:dataTable>
+
+</h:form>
+
+</ui:define>
+</ui:composition>
+</html>

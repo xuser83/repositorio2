@@ -1,0 +1,34 @@
+#principal {
+	width: 1024px;
+	margin: 0 auto;
+}
+#cuadro {
+	margin: 20px auto;
+	width: 40% !important;
+	text-align: center;
+	background: #5F9EA0;
+	margin-top: 60px;
+}
+
+.out {
+	margin-left: 55px;/*Para centrar el interior del login.*/
+}
+
+#bienvenido {
+	width: 400px;
+	height: 120px;
+	background: #5F9EA0;
+	font-size: 40PX;
+	margin: 0 auto;
+	margin-top: 20px;
+	text-align: center;
+	font-family: "Segoe UI", Verdana, Arial, sans-serif;
+}
+
+.ui-growl {
+	margin-top: 70px;
+}
+
+.ui-password {
+	font-family: sans-serif;
+}

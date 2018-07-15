@@ -1,0 +1,495 @@
+1- Primero siembre hacer una copia del proyecto.
+
+* Tener en cuenta en el botón agregar de venta --> onblur="#{registroVentas1.cargarVentaNoEntregada()}"
+* DetalleVenta seteliminado poner transient.
+* comment commit: borré codigo borrado.txt de /jaumina/web/resources/warning/borrados
+entregarVentaBean consultar por cliente fechas agregar eliminar
+* En la pc de carlos hacer backup de la db.
+* Poner activo a clientes y productos.
+
+** Para instrucción de Carlos.
+* Como se guardan los datos en la db.
+* En la boleta sólo salen 10 letras del nombre de producto.
+* En la boleta salen 35 letras del destino
+* Para modificar una venta hay que armar otra página.
+* El destino sólo es válido para toda la venta.
+* Cuando cargas la página, se cargan todos los detalles que 
+aún no se entregaron.
+
+
+	@ManyToOne
+	@JoinColumn(name="id_cliente")	
+	private Cliente cliente;
+
+/*inicio borrado sabado 30-06-2016 RegistroVentas1.java*/
+
+/*private String fechaActualFormateada() {
+	   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+       Date date = new Date();
+       String dateformat = "";
+       try {
+           
+           sdf.applyPattern("dd-MMM-yyyy HH:mm");
+           dateformat = sdf.format(date);
+       } catch (Exception e) {
+  m.mostrarMensajeError("Error al intentar formatear fecha! " + e.getMessage());
+       }
+       return dateformat;
+}*/
+
+	/*private void imprimirVenta(List<Venta> listaVenta) {
+		if(listaVenta != null && !listaVenta.isEmpty()) {
+		List<String> listaString = new ArrayList<String>();
+		String nombreProducto = null;
+		
+		listaString.add(fechaActualFormateada());
+		listaString.add("Ja'umiina - Gracias por su Compra!");
+		listaString.add("Cliente: " + listaVenta.get(0).getCliente());
+		listaString.add("Prod           Cant   Precio");
+		Integer total = 0;
+		for (Venta venta : listaVenta) {
+			nombreProducto = venta.getProductosVenta().getNombrecorto(); 
+			if(nombreProducto.length() > 10) {
+	nombreProducto = nombreProducto.substring(0,10); 
+			} else {
+				if(nombreProducto.length() == 1) {nombreProducto = nombreProducto.concat("                   ");}
+				if(nombreProducto.length() == 2) {nombreProducto = nombreProducto.concat("                  ");}
+				if(nombreProducto.length() == 3) {nombreProducto = nombreProducto.concat("             ");}
+				if(nombreProducto.length() == 4) {nombreProducto = nombreProducto.concat("            ");}
+				if(nombreProducto.length() == 5) {nombreProducto = nombreProducto.concat("           ");}
+				if(nombreProducto.length() == 6) {nombreProducto = nombreProducto.concat("         ");}
+				if(nombreProducto.length() == 7) {nombreProducto = nombreProducto.concat("       ");}
+				if(nombreProducto.length() == 8) {nombreProducto = nombreProducto.concat("     ");}
+			}
+			
+			
+			listaString.add(nombreProducto + "  " + venta.getCantidad() + "   " + formatearNumero(venta.getCosto().toString()));
+		total += venta.getCantidad() * venta.getCosto();
+		
+		}
+		String totalString = String.valueOf(total);
+		
+		
+		listaString.add("Total: " + formatearNumero(totalString) + " Gs.");
+		
+		ObjetoDeImpresion o = new ObjetoDeImpresion();
+		o.setLista(listaString);
+		
+		PrinterJob job = PrinterJob.getPrinterJob();
+		job.setPrintable(o);
+		
+		try{
+		job.print();
+		}catch(PrinterException e){
+		System.out.println(e);
+		}
+		
+		} else {
+			m.mostrarMensaje(FacesMessage.SEVERITY_INFO,"Aviso!","Lista a mostrar esta vacia!");
+		}
+	}*/
+	
+	/*private String formatearNumero(String numero) {
+		boolean formateado = false;
+		if(numero.length() == 4 && !formateado) {
+			String s1 = numero.substring(0, 1);
+			String s3 = numero.substring(1, 4);
+			numero = s1.concat(".").concat(s3);
+			formateado = true;
+		}
+		
+		if(numero.length() == 5 && !formateado) {
+			String s1 = numero.substring(0, 2);
+			String s3 = numero.substring(2, 5);
+			numero = s1.concat(".").concat(s3);
+			formateado = true;
+		}
+		
+		if(numero.length() == 6 && !formateado) { 
+			String s1 = numero.substring(0, 3);
+			String s3 = numero.substring(3, 6);
+			numero = s1.concat(".").concat(s3);
+			formateado = true;
+		}
+		
+		if(numero.length()==7 && !formateado) {  // 1.000.000
+			String s0 = numero.substring(0,1);
+			String s1 = numero.substring(1, 4);
+			String s3 = numero.substring(4,7);
+			numero = s0.concat(".").concat(s1).concat(".").concat(s3);
+			formateado = true;
+		}
+		
+		return numero;
+	}*/
+	
+
+/*private void testVerCantTotalPedidos() {
+	if(listaProductos != null && !listaProductos.isEmpty()) {
+		for (ProductosVenta p: listaProductos) {
+if(p.getCantPedido() > 0 && p.getCantPedido() != null){
+			System.out.println(p.getNombre() + " " + p.getCantPedido());
+}}
+	}
+}*/
+
+/*private void evitarNull() {
+	if(cliente == null)  {cliente = "";}
+	if(telefonoCliente == null)  {telefonoCliente = "";}
+	if(direccionAEntregar == null)  {direccionAEntregar = "";}
+}*/
+
+
+/*fin borrado sabado 30-06-2016 RegistroVentas1.java*/
+
+
+//sabado 11-03-2017
+
+
+<p:ajax event="blur" listener="#{registroVentas.correrAjax}" update="formcargarpedido"/>
+
+<converter>
+    <converter-id>clienteConverter</converter-id>
+    <converter-class>jaumina.entidades.cliente.ClienteConverter</converter-class>
+    </converter>
+
+ formclientes formcantpedido formcargarpedido fcargarpedido2 formpedidos
+
+* Al instalar
+Crear el archivo donde se guarden las exceptiones.
+Descargar Teamviewer
+jboss
+eclipse
+jdk1.8
+mysql - workbench - mysqlyog
+
+\n -----> Nueva Linea.
+\t -----> Tabulador.
+\r -----> Retroceso de Carro.
+\f -----> Comienzo de Pagina.
+\b -----> Borrado a la Izquierda.
+\\ -----> El carácter barra inversa ( \ ).
+\' -----> El carácter prima simple ( ' ).
+\" -----> El carácter prima doble o bi-prima ( " ).
+
+<p:tab title="Cant Pedido">
+<p:dataTable value="#{registroVentas.listaProductos}" var="prodventa" 
+rendered="#{not empty registroVentas.listaProductos}"
+paginator="true" rows="20" style="width: 620px" id="dpedidos">
+
+<f:facet name="header">Pedido de Productos2</f:facet>
+
+
+<p:column 	headerText="Id"
+width="61"	style="font-size: 13px">
+ <h:inputText value="#{prodventa.id}"
+ style="width: 60px; font-size: 12px" readonly="true"/>
+ </p:column>
+
+<p:column 	headerText="Nombre" width= "405"
+style="font-size: 13px">
+ <p:inputText value="#{prodventa.nombre}" readonly="true"
+ style="width: 390px; font-size: 12px" />
+ </p:column>
+ 
+ <p:column 	headerText="Cantidad" width="70"
+ style="font-size: 13px">
+ <h:inputText value="#{prodventa.cantPedido}" readonly="true"
+ style="width: 69px; font-size: 12px" />
+ </p:column>
+ 
+ </p:dataTable>
+</p:tab>
+</p:accordionPanel>
+
+
+
+restar un dia
+Date dt = new Date();
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(dt); 
+		c.add(Calendar.DATE, -1);
+		dt = c.getTime();
+
+Agregar un dia		
+		Date d2 = new Date();
+		Calendar c2 = Calendar.getInstance(); 
+		c2.setTime(d2); 
+		c2.add(Calendar.DATE, 1);
+		d2 = c2.getTime();
+
+* Para renombrar el archivo
+File archivo = new File("c:\\ultra\\diego.txt");
+boolean respuesta = archivo.renameTo("c:\\ultra\\diegotutos.txt");
+
+* Para crear una carpeta
+File archivo = new File("C:\\ultra\\java\\");
+boolean respuesta = archivo.mkdir();
+sysout(respuesta);
+
+* Para varias carpetas
+File archivo = new File("C:\\ultra\\java\\java1\\java2\\");
+boolean respuesta = archivo.mkdirs();
+sysout(respuesta);
+
+* Para ver si existe el archivo
+File archivo = new File("C:\\ultra\\diego.txt");
+		System.out.println(archivo.exists());
+
+<h:commandLink action="#{productosVentaBean.eliminar}" 
+ onclick="if (!confirm('Desea realmente eliminar el Producto: #{prodventa.nombre}')) return false;"
+ style="font-size: 13px">
+ Eliminar
+  <f:setPropertyActionListener 
+  target="#{productosVentaBean.productosVentaSeleccionado}"
+   value="#{prodventa}" />
+ </h:commandLink>
+ -
+
+<h:form id="fdireccion">
+<p:dialog widgetVar="ddireccion" modal="true" width="810"
+closable="true" >
+<p:panelGrid columns="2">
+<f:facet name="header">Direccion a Entregar</f:facet>
+<p:inputTextarea readonly="true"
+value="#{registroVentas.venta.direccionAEntregar}"/>
+</p:panelGrid>
+</p:dialog>
+</h:form>
+ 
+ @SuppressWarnings("unchecked")
+@Override
+public List<Venta> consultarVentaPorFecha(Date desde, Date hasta, 
+		String delivery) throws Exception {
+	String sql = "FROM Venta v WHERE v.delivery like :delivery and "
+			+ "v.fechaVenta BETWEEN :desde AND :hasta";
+	Query consulta = session.createQuery(sql);
+	consulta.setString("delivery", delivery);
+	consulta.setDate("desde", desde);
+	consulta.setDate("hasta", hasta);
+	System.out.println(consulta.getQueryString());
+	
+	return (List<Venta>) consulta.list();
+}
+ 
+ name="SFHibernJaumina"
+ 
+ http://localhost:8080/jaumina/
+ 
+ crear campo cliente
+ 
+ 
+ ventaporfecha.xhtml inicio
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	
+	<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="pageTitle">Venta por Fecha</ui:define>
+	<ui:define name="pageHeader"></ui:define>
+	<ui:define name="body">
+	
+<h:form id="form1">
+<!-- 
+ <p:growl autoUpdate="false" showDetail="true" life="30000"
+ id="message"/>
+ <p:accordionPanel style="width: 1300px">
+<p:tab title="Consulta de Venta por Fecha">
+<p:panelGrid columns="4" style="width:1300px">
+<f:facet name="header">Consultar</f:facet>
+
+<p:outputLabel value="Fecha Desde:" />
+ <!-- <p:calendar pattern="dd/MM/yyyy HH:mm"
+  id="text_fech_desde"
+  value="#{registroVentas.desde}"
+  locale="es" 				title="Fecha Desde"
+  showButtonPanel="true" 	navigator="true"
+  mindate="01/01/2000"
+  showOn="button"
+  required="true"
+  requiredMessage="Completar Fecha!"/>
+ -->
+<p:outputLabel value="Fecha Hasta:" />
+<p:calendar pattern="dd/MM/yyyy HH:mm"
+  id="text_fech_hasta"
+  value="#{registroVentas.hasta}"
+  locale="es" 				title="Fecha Hasta"
+  showButtonPanel="true" 	navigator="true"
+  mindate="01/01/2000"
+  showOn="button"
+  required="true"
+  requiredMessage="Completar Fecha!"/>
+  
+  	<p:outputLabel value="Delivery: " />
+  <p:selectOneMenu id="somdelivery" 
+  value="#{registroVentas.delivery}" >
+   <f:selectItem itemLabel="Si" itemValue="si" />
+   <f:selectItem itemLabel="No" itemValue="no" />
+   <p:ajax event="blur" listener="#{registroVentas.correrAjax}"/>
+  </p:selectOneMenu>
+  
+  <p:outputLabel value="Ver Direccion"/>
+
+<p:selectBooleanButton id="sbooleanb" value="#{registroVentas.mostrarColumnaDireccion}"
+ onLabel="Si" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" />
+ 
+ <p:outputLabel value="Cant Filas: " />
+  <p:selectOneMenu id="somcantfilas" 
+  value="#{registroVentas.cantFilas}" >
+   <f:selectItem itemLabel="1" itemValue="1" />
+   <f:selectItem itemLabel="2" itemValue="2" />
+   <f:selectItem itemLabel="3" itemValue="3" />
+   <f:selectItem itemLabel="4" itemValue="4" />
+   <f:selectItem itemLabel="5" itemValue="5" />
+   <f:selectItem itemLabel="6" itemValue="6" />
+   <f:selectItem itemLabel="7" itemValue="7" />
+   <f:selectItem itemLabel="8" itemValue="8" />
+   <f:selectItem itemLabel="9" itemValue="9" />
+   <f:selectItem itemLabel="10" itemValue="10" />
+   <f:selectItem itemLabel="11" itemValue="11" />
+   <f:selectItem itemLabel="12" itemValue="12" />
+   <f:selectItem itemLabel="13" itemValue="13" />
+   <f:selectItem itemLabel="14" itemValue="14" />
+   <f:selectItem itemLabel="15" itemValue="15" />
+   <f:selectItem itemLabel="16" itemValue="16" />
+   <f:selectItem itemLabel="17" itemValue="17" />
+   <f:selectItem itemLabel="18" itemValue="18" />
+   <f:selectItem itemLabel="19" itemValue="19" />
+   <f:selectItem itemLabel="20" itemValue="20" />
+   <f:selectItem itemLabel="21" itemValue="21" />
+   <f:selectItem itemLabel="22" itemValue="22" />
+   <f:selectItem itemLabel="23" itemValue="23" />
+   <f:selectItem itemLabel="24" itemValue="24" />
+   <f:selectItem itemLabel="25" itemValue="25" />
+   <f:selectItem itemLabel="26" itemValue="26" />
+   <f:selectItem itemLabel="27" itemValue="27" />
+   <f:selectItem itemLabel="28" itemValue="28" />
+   <f:selectItem itemLabel="29" itemValue="29" />
+   <f:selectItem itemLabel="30" itemValue="30" />
+  </p:selectOneMenu>
+ 
+   <p:commandButton value="Consultar"
+  actionListener="#{registroVentas.consultarVentaPorFecha}"
+  update="form1, :tabla, :tabla:gridexport"/>
+  
+  <p:outputLabel />
+
+</p:panelGrid>
+</p:tab>
+</p:accordionPanel>
+</h:form>
+
+<h:form id="tabla">
+
+<p:dataTable value="#{registroVentas.lista}" var="l"
+rendered="#{not empty registroVentas.lista}" 
+scrollable="true" style="width:1300px"
+id="ingresotabla" rows="#{registroVentas.cantFilas}" paginator="true" >
+
+<f:facet name="header">Ventas</f:facet>
+
+<p:column 	headerText="Orden" width="40"
+style="font-size: 13px">
+ <h:outputLabel value="#{l.orden}" 
+ disabled="true" style="font-size: 12px"/>
+ </p:column>
+
+<p:column 	headerText="Nro" width="50"
+style="font-size: 13px">
+ <h:outputLabel value="#{l.id}" 
+ disabled="true" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column 	headerText="Producto" width="300"
+ style="font-size: 13px">
+ <h:outputLabel value="#{l.productosVenta.nombre}" 
+ disabled="true" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column 	headerText="Cant" width="40"
+ style="font-size: 13px">
+ <h:outputLabel value="#{l.cantidad}" 
+ disabled="true" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column 	headerText="Costo" width="60"
+ style="font-size: 13px">
+ <h:outputLabel value="#{l.costo}" 
+ disabled="true" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column 	headerText="Cliente" width="200"
+ style="font-size: 13px">
+ <h:outputLabel value="#{l.cliente}" 
+ disabled="true" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column 	headerText="Fecha" width="140" 
+ style="font-size: 13px">
+ <h:outputLabel value="#{l.fechaVenta}" 
+ disabled="true" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column 	headerText="Ent" width="30"
+ style="font-size: 13px">
+ <h:outputLabel value="#{l.entregado}" 
+ disabled="true" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column 	headerText="Direccion" width="200" 
+ rendered="#{registroVentas.mostrarColumnaDireccion}"
+ style="font-size: 13px">
+ <h:outputLabel value="#{l.direccionAEntregar}" 
+ disabled="true" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column headerText="Dir" width="30"
+ exportable="false" style="font-size: 13px">
+ <p:commandLink style="font-size: 12px"
+ actionListener="#{registroVentas.verDireccion}" update=":form1:message">
+ Dir
+ <f:setPropertyActionListener 
+  target="#{registroVentas.venta}" 
+  value="#{l}" />
+ </p:commandLink>
+ </p:column>
+ 
+ <p:column headerText="Entr" width="30" 
+ exportable="false" style="font-size: 13px">
+ <p:commandLink style="font-size: 12px"
+ actionListener="#{registroVentas.entregado}" update=":form1, tabla">
+ Entr
+ <f:setPropertyActionListener 
+  target="#{registroVentas.ventaEntregada}" 
+  value="#{l}" />
+ </p:commandLink>
+ </p:column>
+ 
+</p:dataTable>
+<p:panelGrid id="gridexport" 
+columns="2" style="width:1300px"
+rendered="#{not empty registroVentas.lista}">
+<h:commandLink>
+Abrir con Excel
+<h:graphicImage library="images" name="excel.png"
+				title="Export as xls"/>
+<p:dataExporter target="ingresotabla" 
+				type="xls" 
+				fileName="Ingresos" />
+</h:commandLink>
+</p:panelGrid>
+
+</h:form>
+	
+<h:outputScript name="spanishLocale.js" 
+library="js"/>
+		</ui:define>
+</ui:composition>
+ 
+</html>
+ ventaporfecha.xhtml fin
