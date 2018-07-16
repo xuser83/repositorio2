@@ -88,9 +88,17 @@ productoSeleccionado = new ProductosVenta();
 	 }
 	}
 private Boolean primerAgregar = true;
+private Boolean seEliminoDetalle = false;
+
 	public void eliminarDetalle(DetalleVenta d) throws Exception {
 		DetalleVentaRN detalleVentaRN = new DetalleVentaRN();
-				
+
+		if(venta1 != null && venta1.getListaDetalle() != null)
+		for (DetalleVenta detalleVenta : venta1.getListaDetalle()) {
+			detalleVenta.setEliminado("no");
+			seEliminoDetalle = true;
+		}
+		
 		if(d != null)
 		detalleVentaRN.eliminar(d);
 		
@@ -131,9 +139,27 @@ private Boolean primerAgregar = true;
 			if(venta1.getDireccionAEntregar() != null)
 				direccionAEntregar = venta1.getDireccionAEntregar();
 			
+			
+			
 			if(venta1.getListaDetalle() != null) {
-				listaDetalle = venta1.getListaDetalle(); }
-			else listaDetalle = new ArrayList<DetalleVenta>(); }
+				
+				if(seEliminoDetalle) {
+					for (DetalleVenta detalleVenta : venta1.getListaDetalle()) {
+				if(detalleVenta.getEliminado() != "si" ) {
+					listaDetalle = new ArrayList<DetalleVenta>();
+					listaDetalle.add(detalleVenta);
+				}		
+					}
+				seEliminoDetalle = false;
+				}
+				
+				
+				listaDetalle = venta1.getListaDetalle(); 
+				}
+			
+			else 
+				listaDetalle = new ArrayList<DetalleVenta>(); 
+			}
 			
 		} else	if (cliente != null && fechaDesde != null && fechaHasta != null) {
 			listaUltimasVentasDelCliente = vr.consultarVentaPorFecha(fechaDesde, fechaHasta, cliente);
@@ -271,6 +297,14 @@ if(listaClientesBuscados == null) {
 
 	public void setFechaDesde(Date fechaDesde) {
 		this.fechaDesde = fechaDesde;
+	}
+
+	public Boolean getSeEliminoDetalle() {
+		return seEliminoDetalle;
+	}
+
+	public void setSeEliminoDetalle(Boolean seEliminoDetalle) {
+		this.seEliminoDetalle = seEliminoDetalle;
 	}
 
 	public void setFechaHasta(Date fechaHasta) {
