@@ -2,8 +2,7 @@
 
 * Tener en cuenta en el botón agregar de venta --> onblur="#{registroVentas1.cargarVentaNoEntregada()}"
 * DetalleVenta seteliminado poner transient.
-* comment commit: borré codigo borrado.txt de /jaumina/web/resources/warning/borrados
-entregarVentaBean consultar por cliente fechas agregar eliminar
+* comment commit: entregarBentaBean consultarventa quitardetalle
 * En la pc de carlos hacer backup de la db.
 * Poner activo a clientes y productos.
 

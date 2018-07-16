@@ -34,8 +34,8 @@ public class EntregarVentaBean implements Serializable {
 	private String salsa;
 	private List<DetalleVenta> listaDetalle = new ArrayList<DetalleVenta>();
 	private List<Venta1> listaUltimasVentasDelCliente = new ArrayList<Venta1>();
-	private Date fechaDesde;
-	private Date fechaHasta;
+	private Date fechaDesde = new Date();
+	private Date fechaHasta = new Date();
 	
 	public void agregar() throws Exception {
 		
@@ -94,10 +94,8 @@ private Boolean primerAgregar = true;
 		if(d != null)
 		detalleVentaRN.eliminar(d);
 		
-		if(venta1.getListaDetalle() != null)
-		listaDetalle = venta1.getListaDetalle();
-		
 		consultarVenta1();
+
 	}
 	
 	public void buscarProductoPorCodigo() {
@@ -122,6 +120,7 @@ private Boolean primerAgregar = true;
 			
 			venta1 = vr.consultarVenta1PorId(venta1.getId());
 			
+			if(venta1 != null)	{	
 			if(venta1.getCliente() != null) {
 			cliente = venta1.getCliente();
 			
@@ -134,7 +133,7 @@ private Boolean primerAgregar = true;
 			
 			if(venta1.getListaDetalle() != null) {
 				listaDetalle = venta1.getListaDetalle(); }
-			else listaDetalle = new ArrayList<DetalleVenta>();
+			else listaDetalle = new ArrayList<DetalleVenta>(); }
 			
 		} else	if (cliente != null && fechaDesde != null && fechaHasta != null) {
 			listaUltimasVentasDelCliente = vr.consultarVentaPorFecha(fechaDesde, fechaHasta, cliente);

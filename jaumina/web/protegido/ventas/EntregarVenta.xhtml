@@ -24,13 +24,6 @@ update="form1, :fcargarpedido2, :formpedidos, :formtablaventas" />
 	</h:panelGroup>
 	
 	<h:panelGroup>
-	<p:outputLabel value="Teléfono: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
-	<p:inputText value="#{entregarVentaBean.telefonoCliente}"
-	id="inptelcli" >
-	</p:inputText>
-	</h:panelGroup>
-	
-	<h:panelGroup>
 	<p:outputLabel value="Cliente: &nbsp;" />
   <p:autoComplete id="autocliente"
 		value="#{entregarVentaBean.cliente}"
@@ -45,24 +38,29 @@ update="form1, :fcargarpedido2, :formpedidos, :formtablaventas" />
 	</h:panelGroup>
 	
 	<h:panelGroup>
+	<p:outputLabel value="Desde:"/>
+	<p:calendar value="#{entregarVentaBean.fechaDesde}"/>
+	<p:outputLabel value="Hasta:"/>
+	<p:calendar value="#{entregarVentaBean.fechaHasta}"/>
+	</h:panelGroup>
+	
+	<h:panelGroup>
+	<p:outputLabel value="Teléfono:"/>
+	<p:inputText value="#{entregarVentaBean.telefonoCliente}"
+	id="inptelcli" >
+	</p:inputText>
+	</h:panelGroup>
+	
+	<h:panelGroup>
 	 <p:outputLabel value="Dir a Entregar:" />
   <p:inputText value="#{entregarVentaBean.direccionAEntregar}" style="width: 400px"
   id="inpdircli" />   
  </h:panelGroup>
 	
  <h:panelGroup>
- <p:outputLabel value="Delivery:" />
+ <p:outputLabel value="Delivery:&nbsp;" />
   <p:inputText style="width: 400px"
   id="inpdeli" />
-	</h:panelGroup>
-	
-	<h:panelGroup>
-	
-	<p:outputLabel value="Desde:"/>
-	<p:calendar value="#{entregarVentaBean.fechaDesde}"/>
-	<p:outputLabel value="Hasta:"/>
-	<p:calendar value="#{entregarVentaBean.fechaHasta}"/>
-	
 	</h:panelGroup>
 	
 	</p:panelGrid>
