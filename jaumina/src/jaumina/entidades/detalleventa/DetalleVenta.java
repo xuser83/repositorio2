@@ -17,8 +17,6 @@ import jaumina.entidades.ventas1.Venta1;
  * 
  *  xuser83@hotmail.com
  *  Luque, 30-06/2018
- *  
- *  Modificado 16-07-2018
  *  */
 
 @Entity

@@ -1,5 +1,4 @@
 
-SELECT * FROM jauminadb.usuario;
 SELECT * FROM jauminadb.productosventa;
 select * from detalleventa;
 seleCT * FROM jauminadb.venta1;
