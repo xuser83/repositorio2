@@ -1,8 +1,11 @@
 1- Primero siembre hacer una copia del proyecto.
 
+/*Modificado 16-07-2018*/
+
 * Tener en cuenta en el botón agregar de venta --> onblur="#{registroVentas1.cargarVentaNoEntregada()}"
 * DetalleVenta seteliminado poner transient.
-* comment commit: entregarBentaBean consultarventa quitardetalle 
+* productoventa cantidad de pedido se usa en venta para cantidad de pedido de cada producto.
+* comment commit: entregarBentaBean consultarventa quitardetalle modifiqué entregarVentaBean jauminaaux.txt 
 * En la pc de carlos hacer backup de la db.
 * Poner activo a clientes y productos.
 
