@@ -170,14 +170,42 @@ private DetalleVenta detalleEliminado;
 		}
 	}
 	
+	private Boolean verificarObjetoNoNull(Object o) {
+		if(o != null)
+			return true;
+		else return false;
+	}
+	
+	private void atribuirPropiedadesVenta1() {
+		if(venta1 != null) {
+			
+			if(verificarObjetoNoNull(cliente))
+			venta1.setCliente(cliente);
+			
+			if(verificarObjetoNoNull(telefonoCliente))
+				venta1.setTelefono(telefonoCliente);
+			
+			if(verificarObjetoNoNull(direccionAEntregar))
+				venta1.setDireccionAEntregar(direccionAEntregar);
+				
+		}
+	}
+	
 	public void entregar(DetalleVenta d) throws Exception {	
 		
 	if(d != null && d.getVenta() != null) {
 		
 		d.getVenta().setEntregado("si");
 		
+		//VentaRN1 v = new VentaRN1();
+	//	v.modificar(d.getVenta()); 
+		}
+	
+	if(venta1 != null) {
 		VentaRN1 v = new VentaRN1();
-		v.modificar(d.getVenta()); }
+		atribuirPropiedadesVenta1();
+		v.modificar(venta1);
+	}
 				
 		new MensajesController().imprimirDetalleVenta(listaDetalle);
 		

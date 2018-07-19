@@ -43,6 +43,9 @@ implements Serializable {
 	@Column(length=3)
 	private String destino;
 	
+	@Column(length=18)
+	private String telefono;
+	
 	@ManyToOne
 	@JoinColumn(name="id_cliente")	
 	private Cliente cliente;
@@ -139,6 +142,12 @@ implements Serializable {
 	public void setDelivery(Delivery delivery) {
 		this.delivery = delivery;
 	}
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -152,6 +161,7 @@ implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((listaDetalle == null) ? 0 : listaDetalle.hashCode());
 		result = prime * result + ((orden == null) ? 0 : orden.hashCode());
+		result = prime * result + ((telefono == null) ? 0 : telefono.hashCode());
 		return result;
 	}
 	@Override
@@ -207,6 +217,11 @@ implements Serializable {
 			if (other.orden != null)
 				return false;
 		} else if (!orden.equals(other.orden))
+			return false;
+		if (telefono == null) {
+			if (other.telefono != null)
+				return false;
+		} else if (!telefono.equals(other.telefono))
 			return false;
 		return true;
 	}

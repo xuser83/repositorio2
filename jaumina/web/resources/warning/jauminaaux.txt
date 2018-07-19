@@ -2,7 +2,10 @@
 
 * Tener en cuenta en el botón agregar de venta --> onblur="#{registroVentas1.cargarVentaNoEntregada()}"
 * DetalleVenta seteliminado poner transient.
-* comment commit: entregarBentaBean consultarventa quitardetalle 
+* comment commit: entregarBentaBean entregar(DetalleVenta d) actualizar venta
+atribuirPropiedadesVenta1() 
+* en pagina venta, ver propiedad venta1.telefono
+* trabajar por la propiedad delivery en venta y entregarventa
 * En la pc de carlos hacer backup de la db.
 * Poner activo a clientes y productos.
 
