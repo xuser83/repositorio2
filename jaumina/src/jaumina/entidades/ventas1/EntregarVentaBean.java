@@ -125,8 +125,8 @@ private DetalleVenta detalleEliminado;
 			if(venta1.getCliente() != null) {
 			cliente = venta1.getCliente();
 			
-			if(venta1.getCliente().getTelefono() != null)
-				telefonoCliente = venta1.getCliente().getTelefono();			
+			if(verificarObjetoNoNull(venta1.getTelefono()))
+				telefonoCliente = venta1.getTelefono();			
 			}
 			
 			if(venta1.getDireccionAEntregar() != null)

@@ -99,16 +99,22 @@ public class RegistroVentas1 implements Serializable{
 		
 		VentaRN1 v = new VentaRN1();
 		
+		if(venta1 != null) {
 		if(venta1.getId() == null) {
 	    	venta1.setEntregado("no");
 	    	
-	    if(clienteBuscado!= null)
+	    if(clienteBuscado!= null) {
 		venta1.setCliente(clienteBuscado);
+		
+	    if(verificarObjetoNoNull(clienteBuscado.getTelefono()))
+	    	venta1.setTelefono(clienteBuscado.getTelefono());
+	    }
 	    
 		venta1.setFechaVenta(new Date());
 		
 		if(direccionAEntregar!= null)
 		venta1.setDireccionAEntregar(direccionAEntregar);
+		
 		
 		
 		if(destino != null && primerAgregar == 0)
@@ -120,11 +126,17 @@ public class RegistroVentas1 implements Serializable{
 		{	idUltimaVenta = v.consultarVenta1UltimoId();
 		    venta1 = v.consultarUltimaVenta1(idUltimaVenta); }		 
 		    deshabDestDirecc = true;
-		 }
+		 } }
 		
 	 guardarDetalleDeVenta();
 	 seCargoVentaNoEntregada = false;
 		cargarVentaNoEntregada();
+	}
+	
+	private Boolean verificarObjetoNoNull(Object o) {
+		if(o != null)
+			return true;
+		else return false;
 	}
 	
 	private void guardarDetalleDeVenta() {

@@ -1,17 +1,19 @@
 1- Primero siembre hacer una copia del proyecto.
 
-* Tener en cuenta en el botón agregar de venta --> onblur="#{registroVentas1.cargarVentaNoEntregada()}"
-* DetalleVenta seteliminado poner transient.
 * comment commit: entregarBentaBean entregar(DetalleVenta d) actualizar venta
 atribuirPropiedadesVenta1() 
-* en pagina venta, ver propiedad venta1.telefono
+
 * trabajar por la propiedad delivery en venta y entregarventa
 * En la pc de carlos hacer backup de la db.
 * Poner activo a clientes y productos.
 
+* ok Tener en cuenta en el botón agregar de venta --> onblur="#{registroVentas1.cargarVentaNoEntregada()}"
+* ok DetalleVenta seteliminado poner transient.
+* ok en pagina venta, ver propiedad venta1.telefono
+
 ** Para instrucción de Carlos.
 * Como se guardan los datos en la db.
-* En la boleta sólo salen 10 letras del nombre de producto.
+* En la boleta sólo salen 8 letras del nombre de producto.
 * En la boleta salen 35 letras del destino
 * Para modificar una venta hay que armar otra página.
 * El destino sólo es válido para toda la venta.

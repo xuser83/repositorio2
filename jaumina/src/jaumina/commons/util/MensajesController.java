@@ -12,7 +12,10 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
+
+import jaumina.entidades.cliente.Cliente;
 import jaumina.entidades.detalleventa.DetalleVenta;
+import jaumina.entidades.productosventa.ProductosVenta;
 import jaumina.entidades.ventas1.Venta1;
 import jaumina.entidades.ventas1.PedidoAImprimir1;
 //import jaumina.entidades.ventas.PedidoAImprimir;
@@ -131,22 +134,29 @@ public void imprimirDetalleVenta(List<DetalleVenta> listaDetalle) {
 		List<PedidoAImprimir1> listaPedido  = new ArrayList<PedidoAImprimir1>();
 	String nombreProducto = null;
 	Integer vertical = 100;
-	listaPedido.add(new PedidoAImprimir1(fechaActualFormateada(), 100, vertical));
+	/**/
+	Integer horizontalInicial = 71;
+	Integer horizontal = horizontalInicial;
+	
+	listaPedido.add(new PedidoAImprimir1(fechaActualFormateada(), horizontal, vertical));
 	vertical += 11;
-	listaPedido.add(new PedidoAImprimir1("Ja'umiina - Gracias por su Compra!", 100, vertical));
+	listaPedido.add(new PedidoAImprimir1("Ja'umiina - Gracias por su Compra!", horizontal, vertical));
 	vertical += 11;
-	listaPedido.add(new PedidoAImprimir1("Av. Cerro Corá c/ Campo Vía", 100, vertical));
+	listaPedido.add(new PedidoAImprimir1("Av. Cerro Corá c/ Campo Vía", horizontal, vertical));
 	vertical += 11;
-	listaPedido.add(new PedidoAImprimir1("Watsapp: 0975 927 056", 100, vertical));
+	listaPedido.add(new PedidoAImprimir1("Watsapp: 0975 927 056", horizontal, vertical));
 	vertical += 11;
 	Venta1 venta1 = listaDetalle.get(0).getVenta();
-	listaPedido.add(new PedidoAImprimir1("Venta N°: " + venta1.getId().toString(), 100, vertical));
+	listaPedido.add(new PedidoAImprimir1("Venta N°: " + venta1.getId().toString(), horizontal, vertical));
 	
 	vertical += 11;
-	listaPedido.add(new PedidoAImprimir1("Prod", 100, vertical));
-	listaPedido.add(new PedidoAImprimir1("Cant", 190, vertical));
-	listaPedido.add(new PedidoAImprimir1("Prec", 240, vertical));
-	listaPedido.add(new PedidoAImprimir1("Subt", 290, vertical));
+	listaPedido.add(new PedidoAImprimir1("Prod", horizontal, vertical));
+	horizontal += 60;
+	listaPedido.add(new PedidoAImprimir1("Cant", horizontal, vertical));
+	horizontal += 40;
+	listaPedido.add(new PedidoAImprimir1("Prec", horizontal, vertical));
+	horizontal += 40;
+	listaPedido.add(new PedidoAImprimir1("Subt", horizontal, vertical));
 	Integer total = 0;
 	
 	vertical += 11;
@@ -155,39 +165,45 @@ public void imprimirDetalleVenta(List<DetalleVenta> listaDetalle) {
 		
 		nombreProducto = d.getProductosVenta().getNombrecorto(); 
 		if(nombreProducto.length() > 10) {
-nombreProducto = nombreProducto.substring(0,10); 
+nombreProducto = nombreProducto.substring(0,8); 
 		}
-		
-		listaPedido.add(new PedidoAImprimir1(nombreProducto, 100, vertical));
-		listaPedido.add(new PedidoAImprimir1(formatearNumero(d.getCantidad().toString()), 190, vertical));
-		listaPedido.add(new PedidoAImprimir1(formatearNumero(d.getCosto().toString()).toString(), 240, vertical));
+		/**/
+		horizontal = horizontalInicial;
+		listaPedido.add(new PedidoAImprimir1(nombreProducto, horizontal, vertical));
+		horizontal += 60;
+		listaPedido.add(new PedidoAImprimir1(formatearNumero(d.getCantidad().toString()), horizontal, vertical));
+		horizontal += 40;
+		listaPedido.add(new PedidoAImprimir1(formatearNumero(d.getCosto().toString()).toString(), horizontal, vertical));
 		Integer subtotal = d.getCantidad() * d.getCosto();
-		listaPedido.add(new PedidoAImprimir1(formatearNumero(subtotal.toString()).toString(), 290, vertical));
+		horizontal += 40;
+		listaPedido.add(new PedidoAImprimir1(formatearNumero(subtotal.toString()).toString(), horizontal, vertical));
 		
 	total += d.getCantidad() * d.getCosto();
 	vertical += 11;
 	}
 	
 	String totalString = String.valueOf(total);
-	listaPedido.add(new PedidoAImprimir1("Total: " + formatearNumero(totalString) + " Gs.", 150, vertical));
+	horizontal = horizontalInicial + 30 ;
+	listaPedido.add(new PedidoAImprimir1("Total: " + formatearNumero(totalString) + " Gs.", horizontal, vertical));
 	
+	horizontal = horizontalInicial;
 	if(venta1.getCliente() != null && venta1.getCliente().getNombres() 
 			!= null && venta1.getCliente().getApellidos() != null) {
 				vertical += 11;
 				listaPedido.add(
 						new PedidoAImprimir1("Cliente: " 
 				+ venta1.getCliente().getNombres() + " " 
-								+ venta1.getCliente().getApellidos(), 100, vertical)); }
+								+ venta1.getCliente().getApellidos(), horizontal, vertical)); }
 	
 	if(venta1.getDireccionAEntregar() != null) {
 		vertical += 11;
 		if(venta1.getDireccionAEntregar().length() > 35)
 			venta1.setDireccionAEntregar("Dir: " + venta1.getDireccionAEntregar().substring(0, 35));
-			 listaPedido.add(new PedidoAImprimir1(venta1.getDireccionAEntregar(), 100, vertical));}
+			 listaPedido.add(new PedidoAImprimir1(venta1.getDireccionAEntregar(), horizontal, vertical));}
 	
 	if(venta1.getCliente().getTelefono() != null) {
 		vertical += 11;
-		 listaPedido.add(new PedidoAImprimir1("Tel: " + venta1.getCliente().getTelefono(), 100, vertical)); }
+		 listaPedido.add(new PedidoAImprimir1("Tel: " + venta1.getCliente().getTelefono(), horizontal, vertical)); }
 	
 	/**************************************************************/
 	ObjetoDeImpresion o = new ObjetoDeImpresion();
@@ -207,6 +223,117 @@ nombreProducto = nombreProducto.substring(0,10);
 	}
 }
 //fin imprimir detalle
+
+/*probar impresora*/
+
+public static void main(String[] args) {
+
+	ProductosVenta p = new ProductosVenta(1, "1", "Hambur", "Hamb", 10000, 11000);
+	ProductosVenta p1 = new ProductosVenta(2, "2", "Hambur Especial", "Hamb Esp", 11000, 12000);
+	ProductosVenta p2 = new ProductosVenta(3, "3", "Hambur Super Especial", "Hamb Sup Es", 12000, 13000);
+	ProductosVenta p3 = new ProductosVenta(4, "4", "Hambur Pollo", "Hamb Poll", 10000, 11000);
+	ProductosVenta p4 = new ProductosVenta(5, "5", "Hambur Pollo Dobl", "Hamb Poll Dob", 11000, 12000);
+	ProductosVenta p5 = new ProductosVenta(6, "6", "Lomito", "Lom", 10000, 11000);
+	ProductosVenta p6 = new ProductosVenta(7, "7", "Lomito Especial", "Lom Esp", 11000, 12000);
+	ProductosVenta p7 = new ProductosVenta(8, "8", "Coca Cola 2L", "Coc 2L", 10000, 11000);
+	ProductosVenta p8 = new ProductosVenta(9, "9", "Brama Lata", "Bran Lat", 10000, 11000);
+	ProductosVenta p9 = new ProductosVenta(10, "10", "Bram Botella", "Bra Bot", 10000, 11000);
+	
+	Cliente cliente = new Cliente();
+	cliente.setApellidos("Cañete Fleitas");
+	cliente.setDireccion("Tte Rojas Silva c/ Manchester.");
+	cliente.setId((long) 200);
+	cliente.setNombres("Marciano Aurelio");
+	cliente.setNro_documento("3.555.111");
+	cliente.setTelefono("+595 971 222 222");
+	
+	
+	Venta1 venta1 = new Venta1();
+	venta1.setCliente(cliente);
+	venta1.setDireccionAEntregar(cliente.getDireccion());
+	venta1.setFechaVenta(new Date());
+	venta1.setId((long) 110);
+	venta1.setTelefono(cliente.getTelefono());
+	
+	DetalleVenta d = new DetalleVenta();
+	d.setCantidad(1110);
+	d.setCosto(10000);
+	d.setProductosVenta(p);
+	d.setVenta(venta1);
+	
+	DetalleVenta d1 = new DetalleVenta();
+	d1.setCantidad(1200);
+	d1.setCosto(10000);
+	d1.setProductosVenta(p1);
+	d1.setVenta(venta1);
+	
+	DetalleVenta d2 = new DetalleVenta();
+	d2.setCantidad(1);
+	d2.setCosto(10000);
+	d2.setProductosVenta(p2);
+	d2.setVenta(venta1);
+	
+	DetalleVenta d3 = new DetalleVenta();
+	d3.setCantidad(1);
+	d3.setCosto(10000);
+	d3.setProductosVenta(p3);
+	d3.setVenta(venta1);
+	
+	DetalleVenta d4 = new DetalleVenta();
+	d4.setCantidad(1);
+	d4.setCosto(10000);
+	d4.setProductosVenta(p4);
+	d4.setVenta(venta1);
+	
+	DetalleVenta d5 = new DetalleVenta();
+	d5.setCantidad(1);
+	d5.setCosto(10000);
+	d5.setProductosVenta(p5);
+	d5.setVenta(venta1);
+	
+	DetalleVenta d6 = new DetalleVenta();
+	d6.setCantidad(1);
+	d6.setCosto(10000);
+	d6.setProductosVenta(p6);
+	d6.setVenta(venta1);
+	
+	DetalleVenta d7 = new DetalleVenta();
+	d7.setCantidad(1);
+	d7.setCosto(10000);
+	d7.setProductosVenta(p7);
+	d7.setVenta(venta1);
+	
+	DetalleVenta d8 = new DetalleVenta();
+	d8.setCantidad(1);
+	d8.setCosto(10000);
+	d8.setProductosVenta(p8);
+	d8.setVenta(venta1);
+	
+	DetalleVenta d9 = new DetalleVenta();
+	d9.setCantidad(1);
+	d9.setCosto(10000);
+	d9.setProductosVenta(p9);
+	d9.setVenta(venta1);
+	
+	List<DetalleVenta> listaDetalle = new ArrayList<DetalleVenta>();
+	listaDetalle.add(d);
+	listaDetalle.add(d1);
+	listaDetalle.add(d2);
+	listaDetalle.add(d3);
+	listaDetalle.add(d4);
+	listaDetalle.add(d5);
+	listaDetalle.add(d6);
+	listaDetalle.add(d7);
+	listaDetalle.add(d8);
+	listaDetalle.add(d9);
+	
+	MensajesController m = new MensajesController();
+	m.imprimirDetalleVenta(listaDetalle);
+}
+
+
+
+/*fin probar impresora*/
 
 
 private String formatearNumero(String numeroString) {
