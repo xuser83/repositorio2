@@ -7,6 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import jaumina.entidades.cliente.Cliente;
+import jaumina.entidades.delivery.Delivery;
 import jaumina.entidades.detalleventa.DetalleVenta;
 import jaumina.entidades.productosventa.ProductosVenta;
 import jaumina.entidades.usuario.Usuario;
@@ -257,6 +258,16 @@ public List<Cliente> listarClientesPorNombres(String nombres) throws Exception {
 }
 
 @SuppressWarnings("unchecked")
+@Override
+public List<Cliente> listarClientesPorNroDocumento(String nro_documento) throws Exception {
+	String sql = "FROM Cliente c WHERE c.nro_documento"
+	 		+ " like :nro_documento";
+	 	Query consulta = session.createQuery(sql);
+	 	consulta.setString("nro_documento", "%" + nro_documento + "%");
+	 	return (List<Cliente>) consulta.list(); 
+}
+
+@SuppressWarnings("unchecked")
 public List<Usuario> listarUsuarios() throws Exception {
 	Criteria lista = session.createCriteria(Usuario.class);
 	return lista.list();
@@ -296,14 +307,35 @@ public Usuario buscarUsuarioPorCodigo(Integer codigo) throws Exception {
 	 return (Usuario) session.get(Usuario.class, codigo);
 }
 
+@Override
+public Delivery buscarDeliveryPorId(Integer id) throws Exception {
+	return (Delivery) session.get(Delivery.class, id);
+}
 @SuppressWarnings("unchecked")
 @Override
-public List<Cliente> listarClientesPorNroDocumento(String nro_documento) throws Exception {
-	String sql = "FROM Cliente c WHERE c.nro_documento"
+public List<Delivery> listarDeliverys() throws Exception {
+	Criteria lista = session.createCriteria(Delivery.class);
+	return lista.list();
+}
+
+@SuppressWarnings("unchecked")
+@Override
+public List<Delivery> listarDeliverysPorNombres(String nombres) throws Exception {
+	String sql = "FROM Delivery c WHERE c.nombres"
+	 		+ " like :nombres";
+	 	Query consulta = session.createQuery(sql);
+	 	consulta.setString("nombres", "%" + nombres + "%");
+	 	return (List<Delivery>) consulta.list(); 
+}
+@SuppressWarnings("unchecked")
+@Override
+public List<Delivery> listarDeliverysPorNroDocumento(String nro_documento) throws Exception {
+	String sql = "FROM Delivery c WHERE c.nro_documento"
 	 		+ " like :nro_documento";
 	 	Query consulta = session.createQuery(sql);
 	 	consulta.setString("nro_documento", "%" + nro_documento + "%");
-	 	return (List<Cliente>) consulta.list(); 
+	 	return (List<Delivery>) consulta.list(); 
+	
 }
 }
 /*@SuppressWarnings("unchecked")

@@ -21,6 +21,10 @@ atribuirPropiedadesVenta1()
 aún no se entregaron.
 
 
+* calendar effect:  show,
+slideDown, fadeIn, blind, bounce, clip, drop, fold and slide.
+
+
 	@ManyToOne
 	@JoinColumn(name="id_cliente")	
 	private Cliente cliente;

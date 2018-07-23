@@ -1,6 +1,7 @@
 package jaumina.entidades.delivery;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,6 +38,8 @@ public class Delivery implements Serializable {
 	
 	@Column(length=1)
 	private String activo;
+	
+	private Date fecha_nacimiento;
 
 	public Integer getId() {
 		return id;
@@ -97,12 +100,27 @@ public class Delivery implements Serializable {
 public Delivery() {}
 
 @Override
+public String toString() {
+	return "Delivery [id=" + id + ", nro_documento=" + nro_documento + ", nombres=" + nombres + ", apellidos="
+			+ apellidos + ", activo=" + activo + "]";
+}
+
+public Date getFecha_nacimiento() {
+	return fecha_nacimiento;
+}
+
+public void setFecha_nacimiento(Date fecha_nacimiento) {
+	this.fecha_nacimiento = fecha_nacimiento;
+}
+
+@Override
 public int hashCode() {
 	final int prime = 31;
 	int result = 1;
 	result = prime * result + ((activo == null) ? 0 : activo.hashCode());
 	result = prime * result + ((apellidos == null) ? 0 : apellidos.hashCode());
 	result = prime * result + ((direccion == null) ? 0 : direccion.hashCode());
+	result = prime * result + ((fecha_nacimiento == null) ? 0 : fecha_nacimiento.hashCode());
 	result = prime * result + ((id == null) ? 0 : id.hashCode());
 	result = prime * result + ((nombres == null) ? 0 : nombres.hashCode());
 	result = prime * result + ((nro_documento == null) ? 0 : nro_documento.hashCode());
@@ -134,6 +152,11 @@ public boolean equals(Object obj) {
 			return false;
 	} else if (!direccion.equals(other.direccion))
 		return false;
+	if (fecha_nacimiento == null) {
+		if (other.fecha_nacimiento != null)
+			return false;
+	} else if (!fecha_nacimiento.equals(other.fecha_nacimiento))
+		return false;
 	if (id == null) {
 		if (other.id != null)
 			return false;
@@ -155,12 +178,6 @@ public boolean equals(Object obj) {
 	} else if (!telefono.equals(other.telefono))
 		return false;
 	return true;
-}
-
-@Override
-public String toString() {
-	return "Delivery [id=" + id + ", nro_documento=" + nro_documento + ", nombres=" + nombres + ", apellidos="
-			+ apellidos + ", activo=" + activo + "]";
 }
 
 

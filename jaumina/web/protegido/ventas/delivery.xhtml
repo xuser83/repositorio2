@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	
+	<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="pageTitle">Delivery</ui:define>
+	<ui:define name="pageHeader"></ui:define>
+	<ui:define name="body">
+	
+<h:form id="edicion">
+ <p:growl showDetail="true" />
+ 
+ <h:inputHidden value="#{deliveryBean.deliverySeleccionado.id}" />
+
+<p:panelGrid columns="4" style="width: 1300px">
+
+<f:facet name="header">Delivery</f:facet>
+     
+  <p:outputLabel value="Nro. Documento:" />
+  <p:inputText id="inp_nro_doc" 
+  value="#{deliveryBean.deliverySeleccionado.nro_documento}" required="true"
+  requiredMessage="Debe completar Nro. Documento!"
+  style="width: 200px; " />
+  
+  <p:outputLabel value="Nombres: " />
+  <p:inputText id="inpnomb" 
+  value="#{deliveryBean.deliverySeleccionado.nombres}"
+  style="width: 300px; " required="true"
+  requiredMessage="Debe completar Nombres!"/>
+ 
+  <p:outputLabel value="Apellidos" />
+  <p:inputText id="impapell" 
+  value="#{deliveryBean.deliverySeleccionado.apellidos}" 
+  style="width: 300px; " required="true"
+  requiredMessage="Debe completar apellidos!"/>
+  
+  <p:outputLabel value="Fech. Nacimiento:"/>
+	<p:calendar value="#{deliveryBean.deliverySeleccionado.fecha_nacimiento}"
+	showButtonPanel="true" pattern="dd-MMM-yyyy" navigator="true" effect=""/>
+  
+  <p:outputLabel value="Telefono: " />
+  <p:inputText id="inptelef" 
+  value="#{deliveryBean.deliverySeleccionado.telefono}"
+  style="width: 200px; " required="true"
+  requiredMessage="Debe completar telefono!"/>
+  
+  <p:outputLabel value="Activo: "/>
+  
+  <p:selectOneMenu id="somactivo" label="Activo: " 
+  value="#{deliveryBean.deliverySeleccionado.activo}" >
+   <f:selectItem itemLabel="Si" itemValue="s" />
+   <f:selectItem itemLabel="No" itemValue="n" />
+  </p:selectOneMenu>
+  
+ </p:panelGrid>
+ 
+ <p:panelGrid columns="2" style="width: 1300px">
+  
+  
+  <p:outputLabel value="Direccion:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;" />
+  <p:inputText id="inpdireccion" 
+  value="#{deliveryBean.deliverySeleccionado.direccion}"
+  style="width: 1000px; " required="true"
+  requiredMessage="Debe completar Direccion!"/>
+  
+  
+<p:commandButton value="Guardar" action="#{clienteBean.guardar}" 
+update="edicion"
+icon="ui-icon-disk"/>
+  <p:outputLabel />
+ </p:panelGrid>
+ </h:form>
+ 
+ <h:form id="lista">
+ 
+ <p:panelGrid columns="5" style="width: 1300px;">
+ <h:panelGroup>
+ <p:outputLabel value="Nombre: "/>
+ <p:inputText value="#{clienteBean.nombreABuscar}"/>
+ <p:commandButton value="Buscar" actionListener="#{clienteBean.buscarClientePorNombre}"
+ update="lista"/>
+ </h:panelGroup>
+ </p:panelGrid>
+
+<p:dataTable value="#{clienteBean.lista}" var="cliente" 
+rendered="#{not empty clienteBean.lista}"
+paginator="true" rows="20" style="width: 1300px">
+
+<f:facet name="header">Lista Clientes</f:facet>
+
+<p:column 	headerText="Id"
+width="61"	style="font-size: 13px">
+<h:outputLabel value="#{cliente.id}" style="font-size: 12px"/>
+ </p:column>
+
+<p:column 	headerText="Documento" width= "130"
+style="font-size: 13px">
+<h:outputLabel value="#{cliente.nro_documento}" style="font-size: 12px"/>
+ </p:column>
+
+<p:column 	headerText="Nombres" width= "201"
+style="font-size: 13px">
+<h:outputLabel value="#{cliente.nombres}" style="font-size: 12px"/>
+ </p:column>
+
+<p:column 	headerText="Apellidos" width= "201"
+style="font-size: 13px">
+<h:outputLabel value="#{cliente.apellidos}" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column 	headerText="Direccion" width= "400px"
+style="font-size: 13px">
+<h:outputLabel value="#{cliente.direccion}" style="font-size: 12px"/>
+ </p:column>
+ 
+ <p:column 	headerText="Telefono" width= "141"
+style="font-size: 13px">
+<h:outputLabel value="#{cliente.telefono}" style="font-size: 12px"/>
+  </p:column>
+   
+ <p:column headerText="Edit" width="50"
+ style="font-size: 13px">
+ <p:commandButton  icon="ui-icon-pencil" 
+ actionListener="#{clienteBean.prepararEdit(cliente)}" update=":edicion"/>
+ </p:column>
+
+</p:dataTable>
+
+</h:form>
+ 
+
+		</ui:define>
+</ui:composition>
+
+</html>

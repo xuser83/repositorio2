@@ -12,14 +12,9 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
-
-import jaumina.entidades.cliente.Cliente;
 import jaumina.entidades.detalleventa.DetalleVenta;
-import jaumina.entidades.productosventa.ProductosVenta;
-import jaumina.entidades.ventas1.Venta1;
 import jaumina.entidades.ventas1.PedidoAImprimir1;
-//import jaumina.entidades.ventas.PedidoAImprimir;
-//import jaumina.entidades.ventas.Venta;
+import jaumina.entidades.ventas1.Venta1;
 
 
 public class MensajesController
@@ -226,7 +221,7 @@ nombreProducto = nombreProducto.substring(0,8);
 
 /*probar impresora*/
 
-public static void main(String[] args) {
+/*public static void main(String[] args) {
 
 	ProductosVenta p = new ProductosVenta(1, "1", "Hambur", "Hamb", 10000, 11000);
 	ProductosVenta p1 = new ProductosVenta(2, "2", "Hambur Especial", "Hamb Esp", 11000, 12000);
@@ -329,7 +324,7 @@ public static void main(String[] args) {
 	
 	MensajesController m = new MensajesController();
 	m.imprimirDetalleVenta(listaDetalle);
-}
+}*/
 
 
 
