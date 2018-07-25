@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import jaumina.entidades.cliente.Cliente;
 import jaumina.entidades.delivery.Delivery;
 import jaumina.entidades.detalleventa.DetalleVenta;
+import jaumina.entidades.persona.Persona;
 import jaumina.entidades.productosventa.ProductosVenta;
 import jaumina.entidades.usuario.Usuario;
 //import jaumina.entidades.ventas.Venta;
@@ -337,6 +338,43 @@ public List<Delivery> listarDeliverysPorNroDocumento(String nro_documento) throw
 	 	return (List<Delivery>) consulta.list(); 
 	
 }
+/*persona*/
+/*public Persona buscarPersonaPorNombre(String nombre) throws Exception {
+	String sql = "FROM Persona c WHERE c.nombres"
+	 		+ " like :nombres";
+	 	Query consulta = session.createQuery(sql);
+	 	consulta.setString("nombres", "%" + nombres + "%");
+	 	return (List<Persona>) consulta.list(); 
+}*/
+@Override
+public Persona buscarPersonaPorId(Long id) throws Exception {
+	return (Persona) session.get(Persona.class, id);
+}
+@SuppressWarnings("unchecked")
+@Override
+public List<Persona> listarPersonas() throws Exception {
+	Criteria lista = session.createCriteria(Persona.class);
+	return lista.list();
+}
+
+@SuppressWarnings("unchecked")
+public List<Persona> listarPersonasPorNombres(String nombres) throws Exception { 
+	String sql = "FROM Persona c WHERE c.nombres"
+	 		+ " like :nombres";
+	 	Query consulta = session.createQuery(sql);
+	 	consulta.setString("nombres", "%" + nombres + "%");
+	 	return (List<Persona>) consulta.list(); 
+}
+
+@SuppressWarnings("unchecked")
+public List<Persona> listarPersonasPorNroDocumento(String nro_documento) throws Exception {
+	String sql = "FROM Persona c WHERE c.nro_documento"
+	 		+ " like :nro_documento";
+	 	Query consulta = session.createQuery(sql);
+	 	consulta.setString("nro_documento", "%" + nro_documento + "%");
+	 	return (List<Persona>) consulta.list();
+}
+/*fin persona*/
 }
 /*@SuppressWarnings("unchecked")
 @Override

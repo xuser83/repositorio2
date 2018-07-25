@@ -5,6 +5,7 @@ import java.util.List;
 import jaumina.entidades.cliente.Cliente;
 import jaumina.entidades.delivery.Delivery;
 import jaumina.entidades.detalleventa.DetalleVenta;
+import jaumina.entidades.persona.Persona;
 import jaumina.entidades.productosventa.ProductosVenta;
 import jaumina.entidades.usuario.Usuario;
 import jaumina.entidades.ventas1.Venta1;
@@ -63,7 +64,14 @@ DetalleVenta buscarDetalleVentaPorId(Long id) throws Exception;
 	List<Delivery> listarDeliverys() throws Exception;
 	List<Delivery> listarDeliverysPorNombres(String nombres) throws Exception;
 	List<Delivery> listarDeliverysPorNroDocumento(String nro_documento) throws Exception;
-}
+/*persona*/
+	
+/*Persona buscarPersonaPorNombre(String nombre) throws Exception;*/ 
+Persona buscarPersonaPorId(Long id) throws Exception;
+List<Persona> listarPersonas() throws Exception;
+List<Persona> listarPersonasPorNombres(String nombres) throws Exception;
+List<Persona> listarPersonasPorNroDocumento(String nroDocumento) throws Exception;
+/*fin persona*/}
 /*	List<Venta> consultarVentaPorFecha(Date desde, Date hasta, 
 String delivery) throws Exception;
 Venta buscarVentaPorId(Integer id) throws Exception;

@@ -3,6 +3,7 @@ package jaumina.commons.util;
 import jaumina.entidades.cliente.Cliente;
 import jaumina.entidades.delivery.Delivery;
 import jaumina.entidades.detalleventa.DetalleVenta;
+import jaumina.entidades.persona.Persona;
 import jaumina.entidades.productosventa.ProductosVenta;
 import jaumina.entidades.usuario.Usuario;
 import jaumina.entidades.ventas1.Venta1;
@@ -60,6 +61,14 @@ public class DAOFactory<T> {
 	public static EntityDAO<Delivery> creaDeliveryDAO() {
 		EntityDAOHibernate<Delivery> entityDAOHibernate
 		= new EntityDAOHibernate<Delivery>();		
+		entityDAOHibernate.setSession(HibernateUtil.getSession()
+				.getCurrentSession());		
+		return entityDAOHibernate;
+	}
+	
+	public static EntityDAO<Persona> creaPersonaDAO() {
+		EntityDAOHibernate<Persona> entityDAOHibernate
+		= new EntityDAOHibernate<Persona>();		
 		entityDAOHibernate.setSession(HibernateUtil.getSession()
 				.getCurrentSession());		
 		return entityDAOHibernate;

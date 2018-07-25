@@ -19,6 +19,7 @@
 <mapping class="jaumina.entidades.cliente.Cliente"/>  
 <mapping class="jaumina.entidades.usuario.Usuario" />
 <mapping class="jaumina.entidades.delivery.Delivery" />
+<mapping class="jaumina.entidades.persona.Persona" />
  </session-factory>
 </hibernate-configuration>
 

@@ -7,14 +7,14 @@
 		xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 	
 	<ui:composition template="/WEB-INF/templates/template.xhtml">
-	<ui:define name="pageTitle">Delivery</ui:define>
+	<ui:define name="pageTitle">Persona</ui:define>
 	<ui:define name="pageHeader"></ui:define>
 	<ui:define name="body">
 	
 <h:form id="edicion">
  <p:growl showDetail="true" />
  
- <h:inputHidden value="#{deliveryBean.deliverySeleccionado.id}" />
+ <h:inputHidden value="#{personaBean.personaSeleccionada.id}" />
 
 <p:panelGrid columns="4" style="width: 1300px">
 
@@ -22,39 +22,64 @@
      
   <p:outputLabel value="Nro. Documento:" />
   <p:inputText id="inp_nro_doc" 
-  value="#{deliveryBean.deliverySeleccionado.nro_documento}" required="true"
+  value="#{personaBean.personaSeleccionada.nro_documento}" required="true"
   requiredMessage="Debe completar Nro. Documento!"
   style="width: 200px; " />
   
   <p:outputLabel value="Nombres: " />
   <p:inputText id="inpnomb" 
-  value="#{deliveryBean.deliverySeleccionado.nombres}"
+  value="#{personaBean.personaSeleccionada.nombres}"
   style="width: 300px; " required="true"
   requiredMessage="Debe completar Nombres!"/>
  
   <p:outputLabel value="Apellidos" />
   <p:inputText id="impapell" 
-  value="#{deliveryBean.deliverySeleccionado.apellidos}" 
+  value="#{personaBean.personaSeleccionada.apellidos}" 
   style="width: 300px; " required="true"
   requiredMessage="Debe completar apellidos!"/>
+ 
+  <p:outputLabel value="Nom Corto: " />
+  <p:inputText id="impnomcort" 
+  value="#{personaBean.personaSeleccionada.nombre_corto}" 
+  style="width: 300px; " required="true"
+  requiredMessage="Debe completar nombre corto!"/>
   
   <p:outputLabel value="Fech. Nacimiento:"/>
-	<p:calendar value="#{deliveryBean.deliverySeleccionado.fecha_nacimiento}"
+	<p:calendar value="#{personaBean.personaSeleccionada.fecha_nacimiento}"
 	showButtonPanel="true" pattern="dd-MMM-yyyy" navigator="true" effect="slide" yearRange="c-120:c"/>
+  
+  <p:outputLabel value="Fecha Alta: " />
+  <p:inputText id="impfechalta" 
+  value="#{personaBean.personaSeleccionada.fecha_creacion}" 
+  style="width: 300px; " disabled="true"> 
+  <f:convertDateTime pattern="d-M-yyyy" />
+  </p:inputText>
   
   <p:outputLabel value="Telefono: " />
   <p:inputText id="inptelef" 
-  value="#{deliveryBean.deliverySeleccionado.telefono}"
+  value="#{personaBean.personaSeleccionada.telefono}"
   style="width: 200px; " required="true"
   requiredMessage="Debe completar telefono!"/>
+  
+  <p:outputLabel value="Rol: "/>
+  
+  <p:selectOneMenu id="somrol" label="Rol: " 
+  value="#{personaBean.personaSeleccionada.rol}" >
+   <f:selectItem itemLabel="Cliente" itemValue="cliente" />
+   <f:selectItem itemLabel="Usuario del Sistema" itemValue="usuariosistema" />
+   <f:selectItem itemLabel="Delivery" itemValue="delivery" />
+  </p:selectOneMenu>
   
   <p:outputLabel value="Activo: "/>
   
   <p:selectOneMenu id="somactivo" label="Activo: " 
-  value="#{deliveryBean.deliverySeleccionado.activo}" >
+  value="#{personaBean.personaSeleccionada.activo}" >
    <f:selectItem itemLabel="Si" itemValue="s" />
    <f:selectItem itemLabel="No" itemValue="n" />
   </p:selectOneMenu>
+  
+  <p:outputLabel />
+  <p:outputLabel />
   
  </p:panelGrid>
  
@@ -65,12 +90,12 @@
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   &nbsp;&nbsp;" />
   <p:inputText id="inpdireccion" 
-  value="#{deliveryBean.deliverySeleccionado.direccion}"
+  value="#{personaBean.personaSeleccionada.direccion}"
   style="width: 1000px; " required="true"
   requiredMessage="Debe completar Direccion!"/>
   
   
-<p:commandButton value="Guardar" action="#{clienteBean.guardar}" 
+<p:commandButton value="Guardar" action="#{personaBean.guardar}" 
 update="edicion"
 icon="ui-icon-disk"/>
   <p:outputLabel />
@@ -82,52 +107,52 @@ icon="ui-icon-disk"/>
  <p:panelGrid columns="5" style="width: 1300px;">
  <h:panelGroup>
  <p:outputLabel value="Nombre: "/>
- <p:inputText value="#{clienteBean.nombreABuscar}"/>
- <p:commandButton value="Buscar" actionListener="#{clienteBean.buscarClientePorNombre}"
+ <p:inputText value="#{personaBean.nombreABuscar}"/>
+ <p:commandButton value="Buscar" actionListener="#{personaBean.buscarPersonaPorNombre}"
  update="lista"/>
  </h:panelGroup>
  </p:panelGrid>
 
-<p:dataTable value="#{clienteBean.lista}" var="cliente" 
-rendered="#{not empty clienteBean.lista}"
+<p:dataTable value="#{personaBean.lista}" var="persona" 
+rendered="#{not empty personaBean.lista}"
 paginator="true" rows="20" style="width: 1300px">
 
-<f:facet name="header">Lista Clientes</f:facet>
+<f:facet name="header">Lista Personas</f:facet>
 
 <p:column 	headerText="Id"
 width="61"	style="font-size: 13px">
-<h:outputLabel value="#{cliente.id}" style="font-size: 12px"/>
+<h:outputLabel value="#{persona.id}" style="font-size: 12px"/>
  </p:column>
 
 <p:column 	headerText="Documento" width= "130"
 style="font-size: 13px">
-<h:outputLabel value="#{cliente.nro_documento}" style="font-size: 12px"/>
+<h:outputLabel value="#{persona.nro_documento}" style="font-size: 12px"/>
  </p:column>
 
 <p:column 	headerText="Nombres" width= "201"
 style="font-size: 13px">
-<h:outputLabel value="#{cliente.nombres}" style="font-size: 12px"/>
+<h:outputLabel value="#{persona.nombres}" style="font-size: 12px"/>
  </p:column>
 
 <p:column 	headerText="Apellidos" width= "201"
 style="font-size: 13px">
-<h:outputLabel value="#{cliente.apellidos}" style="font-size: 12px"/>
+<h:outputLabel value="#{persona.apellidos}" style="font-size: 12px"/>
  </p:column>
  
  <p:column 	headerText="Direccion" width= "400px"
 style="font-size: 13px">
-<h:outputLabel value="#{cliente.direccion}" style="font-size: 12px"/>
+<h:outputLabel value="#{persona.direccion}" style="font-size: 12px"/>
  </p:column>
  
  <p:column 	headerText="Telefono" width= "141"
 style="font-size: 13px">
-<h:outputLabel value="#{cliente.telefono}" style="font-size: 12px"/>
+<h:outputLabel value="#{persona.telefono}" style="font-size: 12px"/>
   </p:column>
    
  <p:column headerText="Edit" width="50"
  style="font-size: 13px">
  <p:commandButton  icon="ui-icon-pencil" 
- actionListener="#{clienteBean.prepararEdit(cliente)}" update=":edicion"/>
+ actionListener="#{personaBean.prepararEdit(persona)}" update=":edicion"/>
  </p:column>
 
 </p:dataTable>
