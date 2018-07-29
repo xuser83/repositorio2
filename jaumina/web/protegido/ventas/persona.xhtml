@@ -45,9 +45,10 @@
   requiredMessage="Debe completar nombre corto!"/>
   
   <p:outputLabel value="Fech. Nacimiento:"/>
-	<p:calendar value="#{personaBean.personaSeleccionada.fecha_nacimiento}"
-	showButtonPanel="true" pattern="dd-MMM-yyyy" navigator="true" effect="slide" yearRange="c-120:c"/>
-  
+<p:calendar value="#{personaBean.personaSeleccionada.fecha_nacimiento}"
+	showButtonPanel="true" pattern="dd-MMM-yyyy" navigator="true" effect="fold" yearRange="c-120:c"/>
+
+	  
   <p:outputLabel value="Fecha Alta: " />
   <p:inputText id="impfechalta" 
   value="#{personaBean.personaSeleccionada.fecha_creacion}" 
@@ -77,6 +78,12 @@
    <f:selectItem itemLabel="Si" itemValue="s" />
    <f:selectItem itemLabel="No" itemValue="n" />
   </p:selectOneMenu>
+  
+  <p:outputLabel value="Clave: "/>
+  <p:password value="#{personaBean.personaSeleccionada.clave}"/>
+  
+  <p:outputLabel value="Confirmar Clave: "/>
+  <p:password value="#{personaBean.confirmar_clave}"/>
   
   <p:outputLabel />
   <p:outputLabel />

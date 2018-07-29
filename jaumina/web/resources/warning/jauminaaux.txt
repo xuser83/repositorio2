@@ -7,6 +7,9 @@ atribuirPropiedadesVenta1()
 * En la pc de carlos hacer backup de la db.
 * Poner activo a clientes y productos.
 
+* Persona
+* Creé página IndexControllerPers.
+
 * ok Tener en cuenta en el botón agregar de venta --> onblur="#{registroVentas1.cargarVentaNoEntregada()}"
 * ok DetalleVenta seteliminado poner transient.
 * ok en pagina venta, ver propiedad venta1.telefono
@@ -15,7 +18,12 @@ atribuirPropiedadesVenta1()
 * Como se guardan los datos en la db.
 * En la boleta sólo salen 8 letras del nombre de producto.
 * En la boleta salen 35 letras del destino
-* Para modificar una venta hay que armar otra página.
+
+* Para modificar una venta.
+	* Para entregar venta cuando no se imprimió o tuvo algún problema.
+* Estoy reando personas.
+
+
 * El destino sólo es válido para toda la venta.
 * Cuando cargas la página, se cargan todos los detalles que 
 aún no se entregaron.
@@ -23,7 +31,6 @@ aún no se entregaron.
 
 * calendar effect:  show,
 slideDown, fadeIn, blind, bounce, clip, drop, fold and slide.
-
 
 	@ManyToOne
 	@JoinColumn(name="id_cliente")	

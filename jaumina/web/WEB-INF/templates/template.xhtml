@@ -9,7 +9,7 @@
 <h:head>	
 <title><ui:insert name="pageTitle">Page Title</ui:insert></title>	
 
-<f:event listener="#{plantillaController.verificarSesion()}" 
+<f:event listener="#{plantillaControllerPers.verificarSesion()}" 
 type="preRenderView" />
 
 <h:outputStylesheet name="index.css" library="css" />
@@ -51,12 +51,12 @@ value="Ja´umiina!! -       "/>
 
 <f:facet name="options">
 <p:outputLabel 
-value="Usuario: #{menuController.user.username} " />
+value="Usuario: #{menuControllerPers.user.nombre_corto} " />
 </f:facet> 
 <f:facet name="options">
 <p:commandButton icon="ui-icon-power"
 title="Cerrar Cesion" 
- actionListener="#{menuController.cerrarSesion}"
+ actionListener="#{menuControllerPers.cerrarSesion}"
 action="/Index?faces-redirect=true"/>
 </f:facet>
 

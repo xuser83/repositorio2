@@ -30,10 +30,6 @@ public class PersonaRN {
 		entityDAO.modificar(t);		
 	}
 	
-/*	public Persona buscarPersonaPorNombre(String nombre) throws Exception {
-		
-		return entityDAO.buscarPersonaPorNombre(nombre);
-	}*/
 	public Persona buscarPersonaPorId(Long id) throws Exception {
 		return entityDAO.buscarPersonaPorId(id);
 	}
@@ -49,4 +45,13 @@ public class PersonaRN {
 	public List<Persona> listarPersonasPorNroDocumento(String nroDocumento) throws Exception {
 		return entityDAO.listarPersonasPorNroDocumento(nroDocumento);
 	}
+	
+	public Persona iniciarSesion(Persona persona) {
+		return entityDAO.iniciarSesion(persona);
+	}
+	
+/*	public Persona buscarPersonaPorNombre(String nombre) throws Exception {
+		
+		return entityDAO.buscarPersonaPorNombre(nombre);
+	}*/
 }

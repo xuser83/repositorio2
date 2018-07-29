@@ -20,7 +20,7 @@ public class Persona implements Serializable {
 @GeneratedValue
 private Long id;
 
-@Column(length=15, unique=true) 
+@Column(length=15) 
 private String nro_documento;
 
 @Column(length=60)
@@ -46,6 +46,17 @@ private String activo;
 
 @Column(length=30) 
 private String rol;
+
+@Column(length=25)
+private String clave;
+
+public String getClave() {
+	return clave;
+}
+
+public void setClave(String clave) {
+	this.clave = clave;
+}
 
 public Persona() {}
 
@@ -151,6 +162,7 @@ public int hashCode() {
 	int result = 1;
 	result = prime * result + ((activo == null) ? 0 : activo.hashCode());
 	result = prime * result + ((apellidos == null) ? 0 : apellidos.hashCode());
+	result = prime * result + ((clave == null) ? 0 : clave.hashCode());
 	result = prime * result + ((direccion == null) ? 0 : direccion.hashCode());
 	result = prime * result + ((fecha_creacion == null) ? 0 : fecha_creacion.hashCode());
 	result = prime * result + ((fecha_nacimiento == null) ? 0 : fecha_nacimiento.hashCode());
@@ -181,6 +193,11 @@ public boolean equals(Object obj) {
 		if (other.apellidos != null)
 			return false;
 	} else if (!apellidos.equals(other.apellidos))
+		return false;
+	if (clave == null) {
+		if (other.clave != null)
+			return false;
+	} else if (!clave.equals(other.clave))
 		return false;
 	if (direccion == null) {
 		if (other.direccion != null)

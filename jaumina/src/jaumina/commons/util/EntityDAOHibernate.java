@@ -125,7 +125,7 @@ public ProductosVenta buscarProductoVentaPorCodigo(String codigo) throws Excepti
 		
 		return p;
 	}
-	
+		@Override
 	public ProductosVenta buscarProductoVentaPorNombreCortoDistintoId(String nombrecorto, String id) 
 			throws Exception {
 		ProductosVenta p = new ProductosVenta();
@@ -143,7 +143,7 @@ catch(IndexOutOfBoundsException e) {
 		
 		return p;	
 	}
-	
+	@Override	
 public ProductosVenta buscarProductoVentaPorNombreDistintoId(String nombre, String id) 
 			throws Exception {
 		ProductosVenta p = new ProductosVenta();
@@ -161,7 +161,7 @@ catch(IndexOutOfBoundsException e) {
 		
 		return p;	
 	}
-
+@Override
 public ProductosVenta buscarProductoVentaPorCodigoDistintoId(String codigo, String id) 
 		throws Exception {
 	ProductosVenta p = new ProductosVenta();
@@ -199,7 +199,7 @@ p = new ProductosVenta();
 			return (Long) consulta.uniqueResult();
 			
 	 }
-	
+	@Override
 	public Venta1 consultarUltimaVenta1(Long id) throws Exception {
 		String sql = "FROM Venta1 v WHERE v.id like :id)";
 		 Query consulta = session.createQuery(sql);
@@ -230,6 +230,7 @@ public Venta1 consultarVenta1PorId(Long id) throws Exception {
 	 /*fin *Venta1*/
 
 	/*inicio detalleventa*/
+@Override
 public DetalleVenta buscarDetalleVentaPorId(Long id) throws Exception {
 	String sql = "FROM detalleventa d WHERE d.id like :id)";
 	 Query consulta = session.createQuery(sql);
@@ -269,12 +270,14 @@ public List<Cliente> listarClientesPorNroDocumento(String nro_documento) throws 
 }
 
 @SuppressWarnings("unchecked")
+@Override
 public List<Usuario> listarUsuarios() throws Exception {
 	Criteria lista = session.createCriteria(Usuario.class);
 	return lista.list();
 }
 
 @SuppressWarnings("unchecked")
+@Override
 public Usuario iniciarSesion(Usuario us) {
 	Usuario usuario = null;
 	String consulta;
@@ -295,6 +298,7 @@ usuario = lista.get(0);
 	return usuario;	}
 
 @SuppressWarnings("unchecked")
+@Override
 public List<Usuario> listarUsuariosPorUserName(String username) throws Exception {
 	String sql = "FROM Usuario u WHERE u.username"
 	 		+ " like :username";
@@ -339,13 +343,7 @@ public List<Delivery> listarDeliverysPorNroDocumento(String nro_documento) throw
 	
 }
 /*persona*/
-/*public Persona buscarPersonaPorNombre(String nombre) throws Exception {
-	String sql = "FROM Persona c WHERE c.nombres"
-	 		+ " like :nombres";
-	 	Query consulta = session.createQuery(sql);
-	 	consulta.setString("nombres", "%" + nombres + "%");
-	 	return (List<Persona>) consulta.list(); 
-}*/
+
 @Override
 public Persona buscarPersonaPorId(Long id) throws Exception {
 	return (Persona) session.get(Persona.class, id);
@@ -358,6 +356,7 @@ public List<Persona> listarPersonas() throws Exception {
 }
 
 @SuppressWarnings("unchecked")
+@Override
 public List<Persona> listarPersonasPorNombres(String nombres) throws Exception { 
 	String sql = "FROM Persona c WHERE c.nombres"
 	 		+ " like :nombres";
@@ -367,6 +366,7 @@ public List<Persona> listarPersonasPorNombres(String nombres) throws Exception {
 }
 
 @SuppressWarnings("unchecked")
+@Override
 public List<Persona> listarPersonasPorNroDocumento(String nro_documento) throws Exception {
 	String sql = "FROM Persona c WHERE c.nro_documento"
 	 		+ " like :nro_documento";
@@ -374,8 +374,41 @@ public List<Persona> listarPersonasPorNroDocumento(String nro_documento) throws 
 	 	consulta.setString("nro_documento", "%" + nro_documento + "%");
 	 	return (List<Persona>) consulta.list();
 }
+
+@SuppressWarnings("unchecked")
+@Override
+public Persona iniciarSesion(Persona per) {
+	Persona persona = null;
+	String consulta;
+	try {
+consulta = "from Persona u where u.nombre_corto like :nombre_corto "
+	+ "and u.clave like :clave and u.rol like :rol";
+Query query = session.createQuery(consulta);
+query.setString("nombre_corto", per.getNombre_corto());
+query.setString("clave", per.getClave());
+query.setString("rol", "usuariosistema");
+List<Persona> lista = (List<Persona>) query.list();
+if(!lista.isEmpty()) {
+persona = lista.get(0);
+}
+	} catch (Exception e) {
+		System.out.println("Error: " + e.getMessage());
+		throw e;
+	} finally {}
+	return persona;	
+	}
+
+
 /*fin persona*/
 }
+
+/*public Persona buscarPersonaPorNombre(String nombre) throws Exception {
+String sql = "FROM Persona c WHERE c.nombres"
+ 		+ " like :nombres";
+ 	Query consulta = session.createQuery(sql);
+ 	consulta.setString("nombres", "%" + nombres + "%");
+ 	return (List<Persona>) consulta.list(); 
+}*/
 /*@SuppressWarnings("unchecked")
 @Override
 public List<Venta> consultarVentaPorFecha(Date desde, Date hasta, 
