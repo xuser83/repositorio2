@@ -72,6 +72,8 @@ List<Persona> listarPersonas() throws Exception;
 List<Persona> listarPersonasPorNombres(String nombres) throws Exception;
 List<Persona> listarPersonasPorNroDocumento(String nroDocumento) throws Exception;
 Persona iniciarSesion(Persona persona);
+Persona buscarPersonaPorNombre_corto(String nombre_corto) throws Exception;
+
 /*fin persona*/}
 /*	List<Venta> consultarVentaPorFecha(Date desde, Date hasta, 
 String delivery) throws Exception;

@@ -68,11 +68,14 @@ m.mostrarMensajeErrorModificar(e.getMessage());
 		else {
 	try{
 		if(verificarClave()) {
+			if(verificarObjetoNoNull(personaSeleccionada.getNombre_corto())) {
+			if(verificarNombreCortoParaGuardar(personaSeleccionada.getNombre_corto())) {
 		personaSeleccionada.setFecha_creacion(new Date());
 	entityRN.guardar(personaSeleccionada);
 	m.mostrarMensajeSeGuardo();
 	this.personaSeleccionada = new Persona();
-	}
+		} else {m.mostrarMensaje(FacesMessage.SEVERITY_INFO,"Aviso!","Ya existe una persona con este nombre corto!");}
+	} }
 		else {
 			m.mostrarMensaje(FacesMessage.SEVERITY_INFO,"Aviso!","Las claves no coinciden!");
 		}
@@ -84,6 +87,12 @@ m.mostrarMensajeErrorModificar(e.getMessage());
 		this.lista = null;
 	}
 	
+	private Boolean verificarObjetoNoNull(Object o) {
+		if(o != null)
+			return true;
+		else return false;
+	}
+	
 	private Boolean verificarClave() {
 		Boolean b = false;
 		if(confirmar_clave != null && personaSeleccionada != null && personaSeleccionada.getClave() != null) {
@@ -92,6 +101,17 @@ m.mostrarMensajeErrorModificar(e.getMessage());
 		}
 		return b;
 	}
+	
+	private Boolean verificarNombreCortoParaGuardar(String nombre_corto) throws Exception {
+		Boolean b = false;
+		PersonaRN prn = new PersonaRN();
+		Persona p = prn.buscarPersonaPorNombre_corto(nombre_corto);
+		if(p == null)
+			b= true;
+		
+		return b;
+	}
+	
 	
 	public Persona getPersonaSeleccionada() {
 		return this.personaSeleccionada;

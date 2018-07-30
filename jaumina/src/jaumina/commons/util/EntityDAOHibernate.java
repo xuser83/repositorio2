@@ -382,11 +382,12 @@ public Persona iniciarSesion(Persona per) {
 	String consulta;
 	try {
 consulta = "from Persona u where u.nombre_corto like :nombre_corto "
-	+ "and u.clave like :clave and u.rol like :rol";
+	+ "and u.clave like :clave and u.rol like :rol and u.activo like :activo";
 Query query = session.createQuery(consulta);
 query.setString("nombre_corto", per.getNombre_corto());
 query.setString("clave", per.getClave());
 query.setString("rol", "usuariosistema");
+query.setString("activo", "s");
 List<Persona> lista = (List<Persona>) query.list();
 if(!lista.isEmpty()) {
 persona = lista.get(0);
@@ -397,7 +398,13 @@ persona = lista.get(0);
 	} finally {}
 	return persona;	
 	}
-
+@Override
+public Persona buscarPersonaPorNombre_corto(String nombre_corto) throws Exception {
+	String sql = "FROM Persona d WHERE d.nombre_corto like :nombre_corto";
+	 Query consulta = session.createQuery(sql);
+	 consulta.setString("nombre_corto", nombre_corto);
+return (Persona) consulta.uniqueResult();
+}
 
 /*fin persona*/
 }

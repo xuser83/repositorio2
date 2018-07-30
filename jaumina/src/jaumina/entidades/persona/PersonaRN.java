@@ -50,6 +50,10 @@ public class PersonaRN {
 		return entityDAO.iniciarSesion(persona);
 	}
 	
+	public Persona buscarPersonaPorNombre_corto(String nombre_corto) throws Exception { 
+		return entityDAO.buscarPersonaPorNombre_corto(nombre_corto);
+	}
+	
 /*	public Persona buscarPersonaPorNombre(String nombre) throws Exception {
 		
 		return entityDAO.buscarPersonaPorNombre(nombre);

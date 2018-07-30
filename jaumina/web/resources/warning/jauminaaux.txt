@@ -18,6 +18,7 @@ atribuirPropiedadesVenta1()
 * Como se guardan los datos en la db.
 * En la boleta sólo salen 8 letras del nombre de producto.
 * En la boleta salen 35 letras del destino
+* En persona nombre corto no se puede repetir.
 
 * Para modificar una venta.
 	* Para entregar venta cuando no se imprimió o tuvo algún problema.
@@ -31,6 +32,9 @@ aún no se entregaron.
 
 * calendar effect:  show,
 slideDown, fadeIn, blind, bounce, clip, drop, fold and slide.
+
+<p:calendar value="#{personaBean.personaSeleccionada.fecha_nacimiento}"
+	showButtonPanel="true" pattern="dd-MMM-yyyy" navigator="true" effect="fold" yearRange="c-120:c"/>
 
 	@ManyToOne
 	@JoinColumn(name="id_cliente")	
