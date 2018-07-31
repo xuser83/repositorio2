@@ -19,6 +19,7 @@ atribuirPropiedadesVenta1()
 * En la boleta sólo salen 8 letras del nombre de producto.
 * En la boleta salen 35 letras del destino
 * En persona nombre corto no se puede repetir.
+* Cuando hay mas usuarios, ver modificación y permisos.
 
 * Para modificar una venta.
 	* Para entregar venta cuando no se imprimió o tuvo algún problema.

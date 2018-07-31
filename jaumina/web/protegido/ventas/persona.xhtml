@@ -84,10 +84,10 @@
   </p:selectOneMenu>
   
   <p:outputLabel value="Clave: "/>
-  <p:password value="#{personaBean.personaSeleccionada.clave}"/>
+  <p:password value="#{personaBean.personaSeleccionada.clave}" disabled="#{personaBean.desabilitarParaModificar}"/>
   
-  <p:outputLabel value="Confirmar Clave: "/>
-  <p:password value="#{personaBean.confirmar_clave}"/>
+  <p:outputLabel value="Confirmar Clave: " />
+  <p:password value="#{personaBean.confirmar_clave}" disabled="#{personaBean.desabilitarParaModificar}"/>
   
   <p:outputLabel />
   <p:outputLabel />

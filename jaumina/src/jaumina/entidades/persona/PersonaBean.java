@@ -25,9 +25,15 @@ public class PersonaBean {
 	private MensajesUtil m = new MensajesController();
 	private String nombreABuscar;
 	private String confirmar_clave;
+	private String claveModificar;
+	private Boolean desabilitarParaModificar = false;
 	
 	public void prepararEdit(Persona persona) {
-		setPersonaSeleccionada(persona);
+		if(verificarObjetoNoNull(persona)) {
+		setPersonaSeleccionada(persona); 
+		if(verificarObjetoNoNull(persona.getClave()))
+			claveModificar = persona.getClave();
+		desabilitarParaModificar = true;}
 	}
 	
 	public void buscarPersonaPorNombre() throws Exception {
@@ -54,12 +60,17 @@ if(this.personaSeleccionada.getId() !=null
 && this.personaSeleccionada.getId() != 0) {
 	try{
 		
-		if(verificarClave()) {
-	entityRN.modificar(this.personaSeleccionada);
+if(verificarNombreCortoParaModificar(personaSeleccionada.getNombre_corto(), personaSeleccionada.getId())) {
+  if(verificarDistintoNro_documentoMismoRolModificar(personaSeleccionada.getNro_documento(), 
+		personaSeleccionada.getRol(), Long.toString(personaSeleccionada.getId()))) {
+	  
+	  if(verificarObjetoNoNull(claveModificar))
+	personaSeleccionada.setClave(claveModificar);
+	  
+	  entityRN.modificar(this.personaSeleccionada);
 	m.mostrarMensajeSeModifico();
 			nuevo();
-		} else {
-			m.mostrarMensaje(FacesMessage.SEVERITY_INFO,"Aviso!","Las claves no coinciden!");
+			}
 		}
 			} catch(Exception e) {
 m.mostrarMensajeErrorModificar(e.getMessage());
@@ -70,11 +81,13 @@ m.mostrarMensajeErrorModificar(e.getMessage());
 		if(verificarClave()) {
 			if(verificarObjetoNoNull(personaSeleccionada.getNombre_corto())) {
 			if(verificarNombreCortoParaGuardar(personaSeleccionada.getNombre_corto())) {
+	if(verificarDistintoNro_documentoMismoRol(personaSeleccionada.getNro_documento(), personaSeleccionada.getRol())) {
 		personaSeleccionada.setFecha_creacion(new Date());
 	entityRN.guardar(personaSeleccionada);
 	m.mostrarMensajeSeGuardo();
 	this.personaSeleccionada = new Persona();
-		} else {m.mostrarMensaje(FacesMessage.SEVERITY_INFO,"Aviso!","Ya existe una persona con este nombre corto!");}
+			}
+		} 
 	} }
 		else {
 			m.mostrarMensaje(FacesMessage.SEVERITY_INFO,"Aviso!","Las claves no coinciden!");
@@ -85,6 +98,7 @@ m.mostrarMensajeErrorModificar(e.getMessage());
 		}}
 		
 		this.lista = null;
+		desabilitarParaModificar = false;
 	}
 	
 	private Boolean verificarObjetoNoNull(Object o) {
@@ -104,14 +118,63 @@ m.mostrarMensajeErrorModificar(e.getMessage());
 	
 	private Boolean verificarNombreCortoParaGuardar(String nombre_corto) throws Exception {
 		Boolean b = false;
-		PersonaRN prn = new PersonaRN();
-		Persona p = prn.buscarPersonaPorNombre_corto(nombre_corto);
+		
+		if(verificarObjetoNoNull(nombre_corto)) {
+			PersonaRN prn = new PersonaRN();
+			Persona p = prn.buscarPersonaPorNombre_corto(nombre_corto);
 		if(p == null)
 			b= true;
+		}
+		if(!b) m.mostrarMensaje(FacesMessage.SEVERITY_INFO,"Aviso!","Ya existe una persona con este nombre corto!");
+		
+		return b;
+	}
+
+	private Boolean verificarDistintoNro_documentoMismoRol(String nro_documento, String rol) throws Exception {
+		Boolean b = false;
+		if(nro_documento != null && rol != null) {
+		PersonaRN prn = new PersonaRN();
+		Persona p = prn.buscarPersonaMismoNroDocMismoRol(nro_documento, rol);
+		if(p == null)
+			b = true; }
+		
+	if(!b) m.mostrarMensaje(FacesMessage.SEVERITY_INFO,"Aviso!","Ya existe un "+rol +" con este nro documento!");
 		
 		return b;
 	}
 	
+	private Boolean verificarNombreCortoParaModificar(String nombre_corto, Long id) throws Exception {
+		Boolean b = false;
+		if(verificarObjetoNoNull(nombre_corto) && verificarObjetoNoNull(id)) {
+		PersonaRN prn = new PersonaRN();
+		Persona p = prn.buscarPersonaPorNombre_cortoDistintoId(nombre_corto, Long.toString(id));
+		if(p.getId() == null) {
+			b= true; }
+		else {
+		
+				if(p.getId() == id)
+					b = true;
+			
+		} }
+		
+		if(!b) m.mostrarMensaje(FacesMessage.SEVERITY_INFO,"Aviso!","Ya existe una persona con este nombre corto!");
+		
+		return b;
+	}
+	
+	private Boolean verificarDistintoNro_documentoMismoRolModificar(String nro_documento, String rol, String id) throws Exception {
+		Boolean b = false;
+		
+		if(verificarObjetoNoNull(nro_documento) && verificarObjetoNoNull(rol) && verificarObjetoNoNull(id)) {
+			PersonaRN prn = new PersonaRN();
+			Persona p = prn.buscarPersonaMismoDocMismoRolDistintoId(nro_documento, rol, id);
+			if(p == null) { b = true;}
+		}
+		
+		if(!b) m.mostrarMensaje(FacesMessage.SEVERITY_INFO,"Aviso!","Ya existe un "+ rol +" con este nro documento!");
+		
+		return b;
+	}
 	
 	public Persona getPersonaSeleccionada() {
 		return this.personaSeleccionada;
@@ -156,6 +219,22 @@ m.mostrarMensajeErrorEliminar(e.getMessage());
 
 	public void setConfirmar_clave(String confirmar_clave) {
 		this.confirmar_clave = confirmar_clave;
+	}
+
+	public String getClaveModificar() {
+		return claveModificar;
+	}
+
+	public void setClaveModificar(String claveModificar) {
+		this.claveModificar = claveModificar;
+	}
+
+	public Boolean getDesabilitarParaModificar() {
+		return desabilitarParaModificar;
+	}
+
+	public void setDesabilitarParaModificar(Boolean desabilitarParaModificar) {
+		this.desabilitarParaModificar = desabilitarParaModificar;
 	}
 	
 }

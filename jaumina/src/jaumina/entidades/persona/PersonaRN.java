@@ -54,6 +54,22 @@ public class PersonaRN {
 		return entityDAO.buscarPersonaPorNombre_corto(nombre_corto);
 	}
 	
+	public Persona buscarPersonaMismoNroDocMismoRol(String nro_documento, String rol) throws Exception {
+		return entityDAO.buscarPersonaMismoNroDocMismoRol(nro_documento, rol);
+	}
+	
+	public Persona buscarPersonaPorNombre_cortoDistintoId(String nombre_corto, String id) 
+			throws Exception { 
+		return entityDAO.buscarPersonaPorNombre_cortoDistintoId(nombre_corto, id);
+	}
+	
+	public Persona buscarPersonaMismoDocMismoRolDistintoId(String nro_documento, String rol, String id) throws Exception {
+		return entityDAO.buscarPersonaMismoDocMismoRolDistintoId(nro_documento, rol, id);
+	}
+	
+	public List<Persona> listarPersonasClientesPorNombres(String nombres) throws Exception {  
+		return entityDAO.listarPersonasClientesPorNombres(nombres);
+	}
 /*	public Persona buscarPersonaPorNombre(String nombre) throws Exception {
 		
 		return entityDAO.buscarPersonaPorNombre(nombre);

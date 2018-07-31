@@ -405,7 +405,54 @@ public Persona buscarPersonaPorNombre_corto(String nombre_corto) throws Exceptio
 	 consulta.setString("nombre_corto", nombre_corto);
 return (Persona) consulta.uniqueResult();
 }
+@Override
+public Persona buscarPersonaMismoNroDocMismoRol(String nro_documento, String rol) throws Exception {
+	String sql = "FROM Persona d WHERE d.nro_documento like :nro_documento and d.rol like :rol";
+	 Query consulta = session.createQuery(sql);
+	 consulta.setString("nro_documento", nro_documento);
+	 consulta.setString("rol", rol);
+return (Persona) consulta.uniqueResult();
+}
 
+@Override	
+public Persona buscarPersonaPorNombre_cortoDistintoId(String nombre_corto, String id) 
+			throws Exception {
+		Persona p = new Persona();
+		try {
+		String sql ="from Persona c where c.nombre_corto like :nombre_corto"
+				+ " and c.id != :id";
+		Query consulta = session.createQuery(sql);
+		consulta.setString("nombre_corto", nombre_corto);
+		consulta.setString("id", id);
+		
+		p = (Persona) consulta.list().get(0); } 
+catch(IndexOutOfBoundsException e) {
+	p = new Persona();
+} 
+		
+		return p;	
+	}
+
+@Override
+public Persona buscarPersonaMismoDocMismoRolDistintoId(String nro_documento, String rol, String id) throws Exception {
+	String sql = "FROM Persona d WHERE d.nro_documento like :nro_documento and d.rol like :rol"
+			+ " and d.id != :id";
+	 Query consulta = session.createQuery(sql);
+	 consulta.setString("nro_documento", nro_documento);
+	 consulta.setString("rol", rol);
+	 consulta.setString("id", id);
+return (Persona) consulta.uniqueResult();
+}
+@Override
+@SuppressWarnings("unchecked")
+public List<Persona> listarPersonasClientesPorNombres(String nombres) throws Exception {
+	String sql = "FROM Persona c WHERE c.nombres"
+	 		+ " like :nombres and c.rol like :rol";
+	 	Query consulta = session.createQuery(sql);
+	 	consulta.setString("nombres", "%" + nombres + "%");
+	 	consulta.setString("rol", "cliente");
+	 	return (List<Persona>) consulta.list(); 
+}
 /*fin persona*/
 }
 
