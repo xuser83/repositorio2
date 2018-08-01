@@ -9,7 +9,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import jaumina.commons.util.MensajesController;
-import jaumina.entidades.delivery.Delivery;
 import jaumina.entidades.detalleventa.DetalleVenta;
 import jaumina.entidades.detalleventa.DetalleVentaRN;
 import jaumina.entidades.persona.Persona;
@@ -25,9 +24,9 @@ public class EntregarVentaBean implements Serializable {
 	private static final long serialVersionUID = 5925947590564761083L;
 	private Venta1 venta1 = new Venta1();
 	private Persona cliente = new Persona();
+	private Persona delivery = new Persona();
 	private String espacio = " ";
 	private MensajesController m = new MensajesController();
-	private Delivery delivery = new Delivery();
 	private String direccionAEntregar;
 	private String telefonoCliente;
 	private ProductosVenta productoSeleccionado = new ProductosVenta();
@@ -54,7 +53,8 @@ productoSeleccionado = new ProductosVenta();
 }
 
 	private void guardarVenta1() throws Exception {
-		
+	
+		if(verificarObjetoNoNull(venta1)) {
 	DetalleVenta detalleVenta = new DetalleVenta();
 	if(productoSeleccionado != null) {
 	detalleVenta.setProductosVenta(productoSeleccionado);
@@ -62,6 +62,9 @@ productoSeleccionado = new ProductosVenta();
 	if(productoSeleccionado.getPrecioventa() != null)
 		detalleVenta.setCosto(productoSeleccionado.getPrecioventa());
 	}
+	
+	if(verificarObjetoNoNull(delivery))
+		venta1.setDelivery(delivery);
 	
 	if(salsa != null)
 	detalleVenta.setSalsa(salsa);
@@ -76,6 +79,8 @@ productoSeleccionado = new ProductosVenta();
 	drn.registraDetalleVenta(detalleVenta);		
 		
 	if(primerAgregar) {
+		VentaRN1 v = new VentaRN1();
+		v.modificar(venta1);
 		 detalleVenta.setVenta(venta1);
 		 venta1.getListaDetalle().add(detalleVenta);
 		 setPrimerAgregar(false);		 
@@ -87,11 +92,15 @@ productoSeleccionado = new ProductosVenta();
 		 if(venta1.getListaDetalle() != null)
 		 listaDetalle = venta1.getListaDetalle();
 		 }
-	 }
+	 } }
 	}
 private Boolean primerAgregar = true;
 private Boolean seEliminoDetalle = false;
 private DetalleVenta detalleEliminado;
+
+public void correrAjax() {
+	
+}
 
 	public void eliminarDetalle(DetalleVenta d) throws Exception {
 		
@@ -213,7 +222,7 @@ private DetalleVenta detalleEliminado;
 		
 	}
 	
-	public Delivery getDelivery() {
+	public Persona getDelivery() {
 		return delivery;
 	}
 
@@ -225,7 +234,7 @@ private DetalleVenta detalleEliminado;
 		return telefonoCliente;
 	}
 
-	public void setDelivery(Delivery delivery) {
+	public void setDelivery(Persona delivery) {
 		this.delivery = delivery;
 	}
 
@@ -255,6 +264,26 @@ if(listaClientesBuscados == null) {
 	m.mostrarMensajeError("Error al listar Clientes! " + e.getMessage());
 		}
 	return listaClientesBuscados;
+	}
+	
+	public List<Persona> completeDelivery(String nombres) throws Exception {
+		
+		List<Persona> listaDeliverysBuscados = new ArrayList<Persona>();
+		
+		try { PersonaRN crn = new PersonaRN();
+		
+		if(nombres != null) {
+listaDeliverysBuscados = crn.listarPersonasDeliveryPorNombres(nombres); 
+		}
+if(listaDeliverysBuscados == null) {
+	listaDeliverysBuscados = new ArrayList<Persona>();
+}
+	
+	}
+		catch(Exception e) {
+	m.mostrarMensajeError("Error al listar Deliverys! " + e.getMessage());
+		}
+	return listaDeliverysBuscados;
 	}
 	
 	public void elegirClienteAutoComplete() throws Exception {

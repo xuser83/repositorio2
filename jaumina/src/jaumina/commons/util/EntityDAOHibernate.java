@@ -465,6 +465,16 @@ public List<Persona> listarPersonasClientesPorNombres(String nombres) throws Exc
 	 	consulta.setString("rol", "cliente");
 	 	return (List<Persona>) consulta.list(); 
 }
+@Override
+@SuppressWarnings("unchecked")
+public List<Persona> listarPersonasDeliveryPorNombres(String nombres) throws Exception {
+	String sql = "FROM Persona c WHERE c.nombres"
+	 		+ " like :nombres and c.rol like :rol";
+	 	Query consulta = session.createQuery(sql);
+	 	consulta.setString("nombres", "%" + nombres + "%");
+	 	consulta.setString("rol", "delivery");
+	 	return (List<Persona>) consulta.list(); 
+}
 /*fin persona*/
 }
 

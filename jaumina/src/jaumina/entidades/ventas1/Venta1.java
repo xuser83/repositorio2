@@ -17,7 +17,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import jaumina.entidades.delivery.Delivery;
 import jaumina.entidades.detalleventa.DetalleVenta;
 import jaumina.entidades.persona.Persona;
 
@@ -64,7 +63,7 @@ implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name="id_delivery")	
-	private Delivery delivery;
+	private Persona delivery;
 
 	
 	@Transient
@@ -131,10 +130,10 @@ implements Serializable {
 	public void setListaDetalle(List<DetalleVenta> listaDetalle) {
 		this.listaDetalle = listaDetalle;
 	}
-	public Delivery getDelivery() {
+	public Persona getDelivery() {
 		return delivery;
 	}
-	public void setDelivery(Delivery delivery) {
+	public void setDelivery(Persona delivery) {
 		this.delivery = delivery;
 	}
 	public String getTelefono() {

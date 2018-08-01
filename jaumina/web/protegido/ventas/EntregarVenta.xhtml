@@ -48,19 +48,30 @@ update="form1, :fcargarpedido2, :formpedidos, :formtablaventas" />
 	<p:outputLabel value="Teléfono:"/>
 	<p:inputText value="#{entregarVentaBean.telefonoCliente}"
 	id="inptelcli" >
+	<p:ajax event="blur" listener="#{entregarVentaBean.correrAjax}"/>
 	</p:inputText>
 	</h:panelGroup>
 	
 	<h:panelGroup>
 	 <p:outputLabel value="Dir a Entregar:" />
   <p:inputText value="#{entregarVentaBean.direccionAEntregar}" style="width: 400px"
-  id="inpdircli" />   
+  id="inpdircli" >
+  <p:ajax event="blur" listener="#{entregarVentaBean.correrAjax}"/>
+   </p:inputText>   
  </h:panelGroup>
 	
  <h:panelGroup>
- <p:outputLabel value="Delivery:&nbsp;" />
-  <p:inputText style="width: 400px"
-  id="inpdeli" />
+	<p:outputLabel value="Delivery: &nbsp;" />
+  <p:autoComplete id="autodelivery"
+		value="#{entregarVentaBean.delivery}"
+		itemValue="#{delivery}" 		
+		inputStyle="width: 400px"
+		completeMethod="#{entregarVentaBean.completeDelivery}" 	
+		var="delivery" 
+		itemLabel="#{delivery.nombres.concat(entregarVentaBean.espacio).concat(delivery.apellidos)}" >
+<p:watermark value="Buscar por nombre" for="autodelivery"/>
+<p:ajax event="blur" listener="#{entregarVentaBean.correrAjax}"/>
+</p:autoComplete>
 	</h:panelGroup>
 	
 	</p:panelGrid>

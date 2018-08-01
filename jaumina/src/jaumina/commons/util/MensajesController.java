@@ -141,6 +141,7 @@ public void imprimirDetalleVenta(List<DetalleVenta> listaDetalle) {
 	vertical += 11;
 	listaPedido.add(new PedidoAImprimir1("Watsapp: 0975 927 056", horizontal, vertical));
 	vertical += 11;
+	if(listaDetalle.get(0).getVenta() != null) {
 	Venta1 venta1 = listaDetalle.get(0).getVenta();
 	listaPedido.add(new PedidoAImprimir1("Venta N°: " + venta1.getId().toString(), horizontal, vertical));
 	
@@ -199,6 +200,14 @@ nombreProducto = nombreProducto.substring(0,8);
 	if(venta1.getCliente().getTelefono() != null) {
 		vertical += 11;
 		 listaPedido.add(new PedidoAImprimir1("Tel: " + venta1.getCliente().getTelefono(), horizontal, vertical)); }
+	
+	if(venta1.getDelivery() != null) {
+		if(venta1.getDelivery().getNombres() != null && venta1.getDelivery().getApellidos() != null) {
+			vertical += 11;
+listaPedido.add(new PedidoAImprimir1("Delivery: " + venta1.getDelivery().getNombres() + " " + 
+			venta1.getDelivery().getApellidos(), horizontal, vertical));
+		}
+	} }
 	
 	/**************************************************************/
 	ObjetoDeImpresion o = new ObjetoDeImpresion();

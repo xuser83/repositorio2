@@ -13,3 +13,4 @@ DELETE FROM `jauminadb`.`detalleventa` where `id`>'0';
 DELETE FROM `jauminadb`.`venta1` WHERE `id`>'0';
 delete from persona where id > 0;
 
+

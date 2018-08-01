@@ -78,6 +78,7 @@ Persona buscarPersonaMismoNroDocMismoRol(String nro_documento, String rol) throw
 Persona buscarPersonaPorNombre_cortoDistintoId(String nombre_corto, String id) throws Exception;
 Persona buscarPersonaMismoDocMismoRolDistintoId(String nro_documento, String rol, String id) throws Exception;
 List<Persona> listarPersonasClientesPorNombres(String nombres) throws Exception;
+List<Persona> listarPersonasDeliveryPorNombres(String nombres) throws Exception;
 /*fin persona*/}
 /*	List<Venta> consultarVentaPorFecha(Date desde, Date hasta, 
 String delivery) throws Exception;
