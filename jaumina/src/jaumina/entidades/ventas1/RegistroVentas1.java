@@ -10,9 +10,10 @@ import javax.faces.bean.ViewScoped;
 
 import jaumina.commons.util.MensajesController;
 import jaumina.entidades.cliente.Cliente;
-import jaumina.entidades.cliente.ClienteRN;
 import jaumina.entidades.detalleventa.DetalleVenta;
 import jaumina.entidades.detalleventa.DetalleVentaRN;
+import jaumina.entidades.persona.Persona;
+import jaumina.entidades.persona.PersonaRN;
 import jaumina.entidades.productosventa.ProductosVenta;
 import jaumina.entidades.productosventa.ProductosVentaRN;
 
@@ -175,8 +176,8 @@ public class RegistroVentas1 implements Serializable{
 	}
 	
 	public void nuevoCliente() {
-		    clienteBuscado = new Cliente();
-			cliente = new Cliente();
+		    clienteBuscado = new Persona();
+			cliente = new Persona();
 			direccionAEntregar = "";
 			salsa = "";		
 			venta1 = new Venta1();
@@ -202,26 +203,25 @@ public class RegistroVentas1 implements Serializable{
 		}
 	}
 	
-	public List<Cliente> completeCliente(String nombres) throws Exception {
-	
-		List<Cliente> listaClientesBuscados = new ArrayList<Cliente>();
 		
-		try { ClienteRN crn = new ClienteRN();
+	public List<Persona> completePersonaCliente(String nombres) throws Exception {
+		
+		List<Persona> listaPersonasClientesBuscados = new ArrayList<Persona>();
+		
+		try { PersonaRN crn = new PersonaRN();
 		
 		if(nombres != null) {
-listaClientesBuscados = crn.listarClientesPorNombres(nombres); 
+listaPersonasClientesBuscados = crn.listarPersonasClientesPorNombres(nombres); 
 		}
-if(listaClientesBuscados == null) {
-	listaClientesBuscados = new ArrayList<Cliente>();
+if(listaPersonasClientesBuscados == null) {
+	listaPersonasClientesBuscados = new ArrayList<Persona>();
 }
 	
 	}
 		catch(Exception e) {
 	m.mostrarMensajeError("Error al listar Clientes! " + e.getMessage());
-	m.escribirArchivo("Clase: RegistroVentas, "
-			+ "Línea: , Método: completeCliente, Exception: " + e.getMessage());
 		}
-	return listaClientesBuscados;
+	return listaPersonasClientesBuscados;
 	}
 
 	
@@ -329,10 +329,10 @@ private List<DetalleVenta> listaDetalle = new ArrayList<DetalleVenta>();
 private List<ProductosVenta> listaProductos;
 private String entregado ;
 private Venta1 ventaEntregada1;
-private Cliente cliente;
+private Persona cliente;
 private String espacio = " ";
 private List<Cliente> listaClientes;
-private Cliente clienteBuscado;
+private Persona clienteBuscado;
 private String direccionAEntregar;
 private String salsa;
 private MensajesController m = new MensajesController();
@@ -405,7 +405,7 @@ public Venta1 getVenta1() {
 		this.ventaEntregada1 = ventaEntregada1;
 	}
 
-	public Cliente getCliente() {
+	public Persona getCliente() {
 		return cliente;
 	}
 
@@ -417,15 +417,15 @@ public Venta1 getVenta1() {
 		this.listaClientes = listaClientes;
 	}
 
-	public Cliente getClienteBuscado() {
+	public Persona getClienteBuscado() {
 		return clienteBuscado;
 	}
 
-	public void setClienteBuscado(Cliente clienteBuscado) {
+	public void setClienteBuscado(Persona clienteBuscado) {
 		this.clienteBuscado = clienteBuscado;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(Persona cliente) {
 		this.cliente = cliente;
 	}
 
@@ -516,6 +516,27 @@ public Venta1 getVenta1() {
 	public void setDeshabDestDirecc(boolean deshabDestDirecc) {
 		this.deshabDestDirecc = deshabDestDirecc;
 	}
-
+/*public List<Cliente> completeCliente(String nombres) throws Exception {
+	
+		List<Cliente> listaClientesBuscados = new ArrayList<Cliente>();
+		
+		try { ClienteRN crn = new ClienteRN();
+		
+		if(nombres != null) {
+listaClientesBuscados = crn.listarClientesPorNombres(nombres); 
+		}
+if(listaClientesBuscados == null) {
+	listaClientesBuscados = new ArrayList<Cliente>();
+}
+	
+	}
+		catch(Exception e) {
+	m.mostrarMensajeError("Error al listar Clientes! " + e.getMessage());
+	m.escribirArchivo("Clase: RegistroVentas, "
+			+ "Línea: , Método: completeCliente, Exception: " + e.getMessage());
+		}
+	return listaClientesBuscados;
+	}
+*/
 	
 }

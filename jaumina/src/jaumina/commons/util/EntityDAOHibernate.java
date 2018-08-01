@@ -227,6 +227,18 @@ public Venta1 consultarVenta1PorId(Long id) throws Exception {
 		return (List<Venta1>) consulta.list();
 	}
 
+@SuppressWarnings("unchecked")
+@Override
+public List<Venta1> consultarVentaPorFecha(Date desde, Date hasta, Persona cliente) throws Exception {
+	String sql = "FROM Venta1 v WHERE v.cliente like :cliente AND"
+			+ " v.fechaVenta BETWEEN :desde AND :hasta";
+	Query consulta = session.createQuery(sql);
+	consulta.setDate("desde", desde);
+	consulta.setDate("hasta", hasta);
+	consulta.setEntity("cliente", cliente);
+	return (List<Venta1>) consulta.list();
+}
+
 	 /*fin *Venta1*/
 
 	/*inicio detalleventa*/

@@ -43,6 +43,7 @@ Long consultarVenta1UltimoId()  throws Exception;
 Venta1 consultarUltimaVenta1(Long id) throws Exception;
 Venta1 consultarVenta1PorId(Long id) throws Exception;
 List<Venta1> consultarVentaPorFecha(Date desde, Date hasta, Cliente cliente) throws Exception;
+List<Venta1> consultarVentaPorFecha(Date desde, Date hasta, Persona cliente) throws Exception;
 /*fin Venta1*/
 
 /*inicio detalleventa*/

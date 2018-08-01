@@ -4,14 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import jaumina.commons.util.MensajesController;
-import jaumina.entidades.cliente.Cliente;
-import jaumina.entidades.cliente.ClienteRN;
 import jaumina.entidades.delivery.Delivery;
 import jaumina.entidades.detalleventa.DetalleVenta;
 import jaumina.entidades.detalleventa.DetalleVentaRN;
+import jaumina.entidades.persona.Persona;
+import jaumina.entidades.persona.PersonaRN;
 import jaumina.entidades.productosventa.ProductosVenta;
 import jaumina.entidades.productosventa.ProductosVentaRN;
 /*Diego Manuel Benitez Enciso 
@@ -22,7 +24,7 @@ public class EntregarVentaBean implements Serializable {
 	
 	private static final long serialVersionUID = 5925947590564761083L;
 	private Venta1 venta1 = new Venta1();
-	private Cliente cliente = new Cliente();
+	private Persona cliente = new Persona();
 	private String espacio = " ";
 	private MensajesController m = new MensajesController();
 	private Delivery delivery = new Delivery();
@@ -235,17 +237,17 @@ private DetalleVenta detalleEliminado;
 		this.telefonoCliente = telefonoCliente;
 	}
 
-	public List<Cliente> completeCliente(String nombres) throws Exception {
+	public List<Persona> completeCliente(String nombres) throws Exception {
 		
-		List<Cliente> listaClientesBuscados = new ArrayList<Cliente>();
+		List<Persona> listaClientesBuscados = new ArrayList<Persona>();
 		
-		try { ClienteRN crn = new ClienteRN();
+		try { PersonaRN crn = new PersonaRN();
 		
 		if(nombres != null) {
-listaClientesBuscados = crn.listarClientesPorNombres(nombres); 
+listaClientesBuscados = crn.listarPersonasClientesPorNombres(nombres); 
 		}
 if(listaClientesBuscados == null) {
-	listaClientesBuscados = new ArrayList<Cliente>();
+	listaClientesBuscados = new ArrayList<Persona>();
 }
 	
 	}
@@ -271,11 +273,11 @@ if(listaClientesBuscados == null) {
 		this.venta1 = venta1;
 	}
 
-	public Cliente getCliente() {
+	public Persona getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(Persona cliente) {
 		this.cliente = cliente;
 	}
 

@@ -6,6 +6,7 @@ import java.util.List;
 import jaumina.commons.util.DAOFactory;
 import jaumina.commons.util.EntityDAO;
 import jaumina.entidades.cliente.Cliente;
+import jaumina.entidades.persona.Persona;
 
 public class VentaRN1 {
 
@@ -43,6 +44,10 @@ return ventaDAO1.consultarVenta1PorId(id);
 }
 	
 	public List<Venta1> consultarVentaPorFecha(Date desde, Date hasta, Cliente cliente) throws Exception {
+		return ventaDAO1.consultarVentaPorFecha(desde, hasta, cliente);
+	}
+	
+	public List<Venta1> consultarVentaPorFecha(Date desde, Date hasta, Persona cliente) throws Exception {
 		return ventaDAO1.consultarVentaPorFecha(desde, hasta, cliente);
 	}
 }

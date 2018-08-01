@@ -17,9 +17,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import jaumina.entidades.cliente.Cliente;
 import jaumina.entidades.delivery.Delivery;
 import jaumina.entidades.detalleventa.DetalleVenta;
+import jaumina.entidades.persona.Persona;
 
 /**@author Diego Benitez 
  * 
@@ -48,7 +48,7 @@ implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="id_cliente")	
-	private Cliente cliente;
+	private Persona cliente;
 	
 	@OneToMany(mappedBy = "venta")
 	private List<DetalleVenta> listaDetalle = new ArrayList<DetalleVenta>();
@@ -94,12 +94,7 @@ implements Serializable {
 		return entregado;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
+	
 	public void setEntregado(String entregado) {
 		this.entregado = entregado;
 	}
@@ -147,6 +142,12 @@ implements Serializable {
 	}
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+	public Persona getCliente() {
+		return cliente;
+	}
+	public void setCliente(Persona cliente) {
+		this.cliente = cliente;
 	}
 	@Override
 	public int hashCode() {
@@ -225,7 +226,7 @@ implements Serializable {
 			return false;
 		return true;
 	}
-	
+		
 	
 }
 
