@@ -79,8 +79,6 @@ productoSeleccionado = new ProductosVenta();
 	drn.registraDetalleVenta(detalleVenta);		
 		
 	if(primerAgregar) {
-		VentaRN1 v = new VentaRN1();
-		v.modificar(venta1);
 		 detalleVenta.setVenta(venta1);
 		 venta1.getListaDetalle().add(detalleVenta);
 		 setPrimerAgregar(false);		 

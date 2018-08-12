@@ -199,7 +199,7 @@ nombreProducto = nombreProducto.substring(0,8);
 	
 	if(venta1.getCliente().getTelefono() != null) {
 		vertical += 11;
-		 listaPedido.add(new PedidoAImprimir1("Tel: " + venta1.getCliente().getTelefono(), horizontal, vertical)); }
+		 listaPedido.add(new PedidoAImprimir1("Tel: " + venta1.getTelefono(), horizontal, vertical)); }
 	
 	if(venta1.getDelivery() != null) {
 		if(venta1.getDelivery().getNombres() != null && venta1.getDelivery().getApellidos() != null) {
