@@ -2,12 +2,10 @@ package jaumina.commons.util;
 
 import java.util.Date;
 import java.util.List;
-import jaumina.entidades.cliente.Cliente;
-import jaumina.entidades.delivery.Delivery;
+
 import jaumina.entidades.detalleventa.DetalleVenta;
 import jaumina.entidades.persona.Persona;
 import jaumina.entidades.productosventa.ProductosVenta;
-import jaumina.entidades.usuario.Usuario;
 import jaumina.entidades.ventas1.Venta1;
 
 
@@ -42,7 +40,7 @@ List<Venta1> listarVentas1NoEntregadas() throws Exception;
 Long consultarVenta1UltimoId()  throws Exception;
 Venta1 consultarUltimaVenta1(Long id) throws Exception;
 Venta1 consultarVenta1PorId(Long id) throws Exception;
-List<Venta1> consultarVentaPorFecha(Date desde, Date hasta, Cliente cliente) throws Exception;
+//List<Venta1> consultarVentaPorFecha(Date desde, Date hasta, Cliente cliente) throws Exception;
 List<Venta1> consultarVentaPorFecha(Date desde, Date hasta, Persona cliente) throws Exception;
 /*fin Venta1*/
 
@@ -50,7 +48,7 @@ List<Venta1> consultarVentaPorFecha(Date desde, Date hasta, Persona cliente) thr
 DetalleVenta buscarDetalleVentaPorId(Long id) throws Exception;
 /*fin detalleventa*/
 
-
+/* Cliente, Usuario Delivery
 	Cliente buscarClientePorId(Long id) throws Exception;
 	List<Cliente> listarClientes() throws Exception;
 	List<Cliente> listarClientesPorNombres(String nombres) throws Exception;
@@ -65,6 +63,7 @@ DetalleVenta buscarDetalleVentaPorId(Long id) throws Exception;
 	List<Delivery> listarDeliverys() throws Exception;
 	List<Delivery> listarDeliverysPorNombres(String nombres) throws Exception;
 	List<Delivery> listarDeliverysPorNroDocumento(String nro_documento) throws Exception;
+	fin Cliente, Usuario Delivery*/
 /*persona*/
 	
 /*Persona buscarPersonaPorNombre(String nombre) throws Exception;*/ 

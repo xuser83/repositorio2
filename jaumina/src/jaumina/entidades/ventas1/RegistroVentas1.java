@@ -9,7 +9,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import jaumina.commons.util.MensajesController;
-import jaumina.entidades.cliente.Cliente;
 import jaumina.entidades.detalleventa.DetalleVenta;
 import jaumina.entidades.detalleventa.DetalleVentaRN;
 import jaumina.entidades.persona.Persona;
@@ -198,7 +197,7 @@ public class RegistroVentas1 implements Serializable{
 						
 		if (clienteBuscado.getDireccion() != null)
 		setDireccionAEntregar(clienteBuscado.getDireccion());
-		listaClientes = new ArrayList<Cliente>();
+		listaClientes = new ArrayList<Persona>();
 			
 		}
 	}
@@ -331,7 +330,7 @@ private String entregado ;
 private Venta1 ventaEntregada1;
 private Persona cliente;
 private String espacio = " ";
-private List<Cliente> listaClientes;
+private List<Persona> listaClientes;
 private Persona clienteBuscado;
 private String direccionAEntregar;
 private String salsa;
@@ -409,11 +408,11 @@ public Venta1 getVenta1() {
 		return cliente;
 	}
 
-	public List<Cliente> getListaClientes() {
+	public List<Persona> getListaClientes() {
 		return listaClientes;
 	}
 
-	public void setListaClientes(List<Cliente> listaClientes) {
+	public void setListaClientes(List<Persona> listaClientes) {
 		this.listaClientes = listaClientes;
 	}
 

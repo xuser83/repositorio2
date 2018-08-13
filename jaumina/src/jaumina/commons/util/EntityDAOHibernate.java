@@ -3,15 +3,14 @@ package jaumina.commons.util;
 import java.util.Date;
 //import java.util.Date;
 import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import jaumina.entidades.cliente.Cliente;
-import jaumina.entidades.delivery.Delivery;
+
 import jaumina.entidades.detalleventa.DetalleVenta;
 import jaumina.entidades.persona.Persona;
 import jaumina.entidades.productosventa.ProductosVenta;
-import jaumina.entidades.usuario.Usuario;
 //import jaumina.entidades.ventas.Venta;
 import jaumina.entidades.ventas1.Venta1;
 
@@ -215,7 +214,7 @@ public Venta1 consultarVenta1PorId(Long id) throws Exception {
 	return (Venta1) consulta.uniqueResult();
 }
 	
-@SuppressWarnings("unchecked")
+/*@SuppressWarnings("unchecked")
 	@Override
 	public List<Venta1> consultarVentaPorFecha(Date desde, Date hasta, Cliente cliente) throws Exception {
 		String sql = "FROM Venta1 v WHERE v.cliente like :cliente AND"
@@ -225,7 +224,7 @@ public Venta1 consultarVenta1PorId(Long id) throws Exception {
 		consulta.setDate("hasta", hasta);
 		consulta.setEntity("cliente", cliente);
 		return (List<Venta1>) consulta.list();
-	}
+	}*/
 
 @SuppressWarnings("unchecked")
 @Override
@@ -251,7 +250,7 @@ return (DetalleVenta) consulta.uniqueResult();
 }	
 	/*fin detalleventa*/
 	
-	 @Override
+	 /*@Override
 	 public Cliente buscarClientePorId(Long id) throws Exception {
 		 return (Cliente) session.get(Cliente.class, id);
 	 }
@@ -353,7 +352,7 @@ public List<Delivery> listarDeliverysPorNroDocumento(String nro_documento) throw
 	 	consulta.setString("nro_documento", "%" + nro_documento + "%");
 	 	return (List<Delivery>) consulta.list(); 
 	
-}
+}fin Cliente, Usuario Delivery*/
 /*persona*/
 
 @Override
