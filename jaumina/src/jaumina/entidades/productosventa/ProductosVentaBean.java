@@ -66,7 +66,7 @@ m.escribirArchivo("Clase: ProductosVentasBean, "
 		+ "Línea: 44, Método: Save, Exception: " + e.getMessage());
 }
 }  else {
-	m.mostrarMensaje(FacesMessage.SEVERITY_INFO,"Nombre", 
+	m.mostrarMensaje(FacesMessage.SEVERITY_INFO,"Código", 
 			"Ya existe un producto con ese código!");	
 }
 

@@ -26,6 +26,6 @@ public void verificarSesion() throws IOException {
 	if(us == null) {
 		context
 		.getExternalContext()
-		.redirect("/jaumina/IndexPers.jsf");
+		.redirect("/jaumina/Index.jsf");
 	}
 	} catch(Exception e) {}finally {}}}
