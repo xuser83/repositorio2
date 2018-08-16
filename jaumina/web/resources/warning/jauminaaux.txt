@@ -1,4 +1,6 @@
-1- Primero siembre hacer una copia del proyecto.
+
+
+1- Primero siempre hacer una copia del proyecto.
 
 * comment commit: entregarBentaBean entregar(DetalleVenta d) actualizar venta
 atribuirPropiedadesVenta1() 

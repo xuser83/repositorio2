@@ -35,6 +35,9 @@ public class ProductosVenta implements Serializable {
 	
 	private Integer precioventa;
 	
+	@Column(length=1)
+	private String activo;
+	
 	@Transient
 	private Integer orden;
 	
@@ -113,19 +116,35 @@ public class ProductosVenta implements Serializable {
 				+ nombre + "]";
 	}
 
+	public Integer getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Integer orden) {
+		this.orden = orden;
+	}
+
+	public String getActivo() {
+		return activo;
+	}
+
+	public void setActivo(String activo) {
+		this.activo = activo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((activo == null) ? 0 : activo.hashCode());
+		result = prime * result + ((cantPedido == null) ? 0 : cantPedido.hashCode());
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result
-				+ ((nombrecorto == null) ? 0 : nombrecorto.hashCode());
-		result = prime * result
-				+ ((preciocosto == null) ? 0 : preciocosto.hashCode());
-		result = prime * result
-				+ ((precioventa == null) ? 0 : precioventa.hashCode());
+		result = prime * result + ((nombrecorto == null) ? 0 : nombrecorto.hashCode());
+		result = prime * result + ((orden == null) ? 0 : orden.hashCode());
+		result = prime * result + ((preciocosto == null) ? 0 : preciocosto.hashCode());
+		result = prime * result + ((precioventa == null) ? 0 : precioventa.hashCode());
 		return result;
 	}
 
@@ -138,6 +157,16 @@ public class ProductosVenta implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ProductosVenta other = (ProductosVenta) obj;
+		if (activo == null) {
+			if (other.activo != null)
+				return false;
+		} else if (!activo.equals(other.activo))
+			return false;
+		if (cantPedido == null) {
+			if (other.cantPedido != null)
+				return false;
+		} else if (!cantPedido.equals(other.cantPedido))
+			return false;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
@@ -158,6 +187,11 @@ public class ProductosVenta implements Serializable {
 				return false;
 		} else if (!nombrecorto.equals(other.nombrecorto))
 			return false;
+		if (orden == null) {
+			if (other.orden != null)
+				return false;
+		} else if (!orden.equals(other.orden))
+			return false;
 		if (preciocosto == null) {
 			if (other.preciocosto != null)
 				return false;
@@ -169,14 +203,6 @@ public class ProductosVenta implements Serializable {
 		} else if (!precioventa.equals(other.precioventa))
 			return false;
 		return true;
-	}
-
-	public Integer getOrden() {
-		return orden;
-	}
-
-	public void setOrden(Integer orden) {
-		this.orden = orden;
 	}
 	
 	
