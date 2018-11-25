@@ -18,8 +18,9 @@ import jaumina.commons.util.MensajesController;
 @ManagedBean(name="productosVentaBean")
 @RequestScoped
 public class ProductosVentaBean {
+	
 
-	private ProductosVenta productosVentaSeleccionado = new ProductosVenta();
+	private ProductosVenta productosVentaSeleccionado = new ProductosVenta(true);
 	private List<ProductosVenta> lista = null;
 	MensajesController m = new MensajesController();
 	
@@ -218,6 +219,7 @@ productosVentaSeleccionado.getCodigo(), productosVentaSeleccionado.getId().toStr
 			for (ProductosVenta productosVenta : lista) {
 				productosVenta.setOrden(orden + 1);
 				orden += 1;
+				
 			}
 		}
 		return lista;
@@ -237,7 +239,7 @@ m.mostrarMensajeErrorEliminar(e.getMessage());
 	}
 	
 	public void nuevo() {
-		this.productosVentaSeleccionado = new ProductosVenta();
+		this.productosVentaSeleccionado = new ProductosVenta(true);
 	}
 	/*private FileWriter archivo = null;
 	private PrintWriter printer = null;

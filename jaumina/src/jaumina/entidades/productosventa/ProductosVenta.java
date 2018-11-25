@@ -15,6 +15,10 @@ public class ProductosVenta implements Serializable {
 
 	private static final long serialVersionUID = 1657224151184648406L;
 
+	public ProductosVenta(Boolean activo) {
+		setActivo(activo);
+	}
+	
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -35,8 +39,7 @@ public class ProductosVenta implements Serializable {
 	
 	private Integer precioventa;
 	
-	@Column(length=1)
-	private String activo;
+	private Boolean activo;
 	
 	@Transient
 	private Integer orden;
@@ -124,11 +127,11 @@ public class ProductosVenta implements Serializable {
 		this.orden = orden;
 	}
 
-	public String getActivo() {
+	public Boolean getActivo() {
 		return activo;
 	}
 
-	public void setActivo(String activo) {
+	public void setActivo(Boolean activo) {
 		this.activo = activo;
 	}
 
@@ -204,6 +207,7 @@ public class ProductosVenta implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
+
+
+
 }

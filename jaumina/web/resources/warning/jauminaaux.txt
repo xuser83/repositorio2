@@ -2,8 +2,7 @@
 
 1- Primero siempre hacer una copia del proyecto.
 
-* comment commit: entregarBentaBean entregar(DetalleVenta d) actualizar venta
-atribuirPropiedadesVenta1() 
+* comment commit: productosVentaBean.productosVentaSeleccionado.activo - persona.activo
 
 * trabajar por la propiedad delivery en venta y entregarventa
 * En la pc de carlos hacer backup de la db.
@@ -35,6 +34,13 @@ aún no se entregaron.
 
 * calendar effect:  show,
 slideDown, fadeIn, blind, bounce, clip, drop, fold and slide.
+
+<p:selectOneMenu id="somactivo" label="Activo: " 
+  value="#{personaBean.personaSeleccionada.activo}" >
+   <f:selectItem itemLabel="Si" itemValue="s" />
+   <f:selectItem itemLabel="No" itemValue="n" />
+  </p:selectOneMenu>
+  
 
 <p:calendar value="#{personaBean.personaSeleccionada.fecha_nacimiento}"
 	showButtonPanel="true" pattern="dd-MMM-yyyy" navigator="true" effect="fold" yearRange="c-120:c"/>

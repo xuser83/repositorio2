@@ -37,9 +37,15 @@ public class IndexControllerPers implements Serializable {
 	try {
 		us = personaRN.iniciarSesion(persona);
 		if(us != null) {
+			if(us.getActivo()) {
 FacesContext.getCurrentInstance().getExternalContext()
 .getSessionMap().put("persona", us);
-		redireccion = "/protegido/inicio?faces-redirect=true";}
+		redireccion = "/protegido/inicio?faces-redirect=true";} else {
+			FacesContext.getCurrentInstance()
+			.addMessage(null, 
+					new FacesMessage(FacesMessage.SEVERITY_WARN, 
+					"Aviso","Usuario Inactivo!"));
+		}}
 		else {
 			FacesContext.getCurrentInstance()
 			.addMessage(null, 

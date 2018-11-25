@@ -20,7 +20,7 @@ import jaumina.commons.util.MensajesUtil;
 @ViewScoped
 public class PersonaBean {
 
-	private Persona personaSeleccionada = new Persona();
+	private Persona personaSeleccionada = new Persona(true);
 	private List<Persona> lista = null;
 	private MensajesUtil m = new MensajesController();
 	private String nombreABuscar;
@@ -202,7 +202,7 @@ m.mostrarMensajeErrorEliminar(e.getMessage());
 	}
 	
 	public void nuevo() {
-		this.personaSeleccionada = new Persona();
+		this.personaSeleccionada = new Persona(true	);
 	}
 
 	public String getNombreABuscar() {

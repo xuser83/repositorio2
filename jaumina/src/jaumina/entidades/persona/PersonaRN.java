@@ -70,6 +70,9 @@ public class PersonaRN {
 	public List<Persona> listarPersonasClientesPorNombres(String nombres) throws Exception {  
 		return entityDAO.listarPersonasClientesPorNombres(nombres);
 	}
+	public List<Persona> listarPersonasClientesActivosPorNombres(String nombres) throws Exception {
+		return entityDAO.listarPersonasClientesActivosPorNombres(nombres);
+	}
 	public List<Persona> listarPersonasDeliveryPorNombres(String nombres) throws Exception {
 		return entityDAO.listarPersonasDeliveryPorNombres(nombres);
 	}

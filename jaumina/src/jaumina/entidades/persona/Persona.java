@@ -16,6 +16,10 @@ public class Persona implements Serializable {
 
 	private static final long serialVersionUID = -2294648310669075113L;
 
+	public Persona(Boolean activo) {
+		setActivo(activo);
+	}
+	
 @Id
 @GeneratedValue
 private Long id;
@@ -41,8 +45,7 @@ private Date fecha_nacimiento;
 
 private Date fecha_creacion;
 
-@Column(length=1)
-private String activo;
+private Boolean activo;
 
 @Column(length=30) 
 private String rol;
@@ -109,11 +112,10 @@ public void setNro_documento(String nro_documento) {
 	this.nro_documento = nro_documento;
 }
 
+
 @Override
 public String toString() {
-	return "Persona [id=" + id + ", nro_documento=" + nro_documento + ", nombres=" + nombres + ", apellidos="
-			+ apellidos + ", direccion=" + direccion + ", telefono=" + telefono + ", fecha_nacimiento="
-			+ fecha_nacimiento + ", fecha_creacion=" + fecha_creacion + ", activo=" + activo + ", rol=" + rol + "]";
+	return "Persona [nombre_corto=" + nombre_corto + ", activo=" + activo + "]";
 }
 
 public Date getFecha_nacimiento() {
@@ -122,10 +124,6 @@ public Date getFecha_nacimiento() {
 
 public Date getFecha_creacion() {
 	return fecha_creacion;
-}
-
-public String getActivo() {
-	return activo;
 }
 
 public String getRol() {
@@ -140,10 +138,6 @@ public void setFecha_creacion(Date fecha_creacion) {
 	this.fecha_creacion = fecha_creacion;
 }
 
-public void setActivo(String activo) {
-	this.activo = activo;
-}
-
 public void setRol(String rol) {
 	this.rol = rol;
 }
@@ -154,6 +148,14 @@ public String getNombre_corto() {
 
 public void setNombre_corto(String nombre_corto) {
 	this.nombre_corto = nombre_corto;
+}
+
+public Boolean getActivo() {
+	return activo;
+}
+
+public void setActivo(Boolean activo) {
+	this.activo = activo;
 }
 
 @Override
