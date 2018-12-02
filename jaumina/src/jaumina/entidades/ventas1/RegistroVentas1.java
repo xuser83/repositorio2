@@ -210,7 +210,8 @@ public class RegistroVentas1 implements Serializable{
 		try { PersonaRN crn = new PersonaRN();
 		
 		if(nombres != null) {
-listaPersonasClientesBuscados = crn.listarPersonasClientesActivosPorNombres(nombres); 
+listaPersonasClientesBuscados = crn.listarClientesActivosPorNombreOApellido(nombres);
+//crn.listarPersonasClientesActivosPorNombres(nombres); 
 		}
 if(listaPersonasClientesBuscados == null) {
 	listaPersonasClientesBuscados = new ArrayList<Persona>();

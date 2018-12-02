@@ -493,6 +493,51 @@ public List<Persona> listarPersonasClientesActivosPorNombres(String nombres) thr
 	 	
 	 	return listaPersonasClientesActivos; 
 }
+@Override
+@SuppressWarnings("unchecked")
+public List<Persona> listarClientesActivosPorNombreOApellido(String nombreOApellido) 
+		throws Exception {
+	String sql = "FROM Persona c WHERE c.nombres"
+	 		+ " like :nombres and c.rol like :rol";
+	 	Query consulta = session.createQuery(sql);
+	 	consulta.setString("nombres", "%" + nombreOApellido + "%");
+	 	consulta.setString("rol", "cliente");
+	 	
+	 	List<Persona> listaPersonasClientesActivos = new ArrayList<Persona>();
+	 	
+	 	if(consulta.list() != null) {
+	 	
+	 	List<Persona> listaClientes = (List<Persona>) consulta.list();
+	 		
+	 		for (Persona persona : listaClientes) {
+				if(persona.getActivo()) {
+					listaPersonasClientesActivos.add(persona);
+				}
+			}
+	 	}
+	 	
+	 	if(consulta.list() == null || consulta.list().isEmpty()) {
+	 		
+	 		String sql1 = "FROM Persona c WHERE c.apellidos"
+	 		 		+ " like :apellidos and c.rol like :rol";
+	 		 	Query consulta1 = session.createQuery(sql1);
+	 		 	consulta1.setString("apellidos", "%" + nombreOApellido + "%");
+	 		 	consulta1.setString("rol", "cliente");
+	 		 	
+	 		 	if(consulta1.list() != null) {
+	 		 		List<Persona> listaClientes = (List<Persona>) consulta1.list();	 		
+	 		 		for (Persona persona : listaClientes) {
+	 					if(persona.getActivo()) {
+	 						listaPersonasClientesActivos.add(persona);
+	 					}
+	 				} 		
+	 		 	}
+	 		
+	 	}
+	 	
+	 	
+	 	return listaPersonasClientesActivos; 
+} 
 
 @Override
 @SuppressWarnings("unchecked")

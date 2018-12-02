@@ -147,7 +147,7 @@ public void imprimirDetalleVenta(List<DetalleVenta> listaDetalle) {
 	
 	vertical += 11;
 	listaPedido.add(new PedidoAImprimir1("Prod", horizontal, vertical));
-	horizontal += 60;
+	horizontal += 65;
 	listaPedido.add(new PedidoAImprimir1("Cant", horizontal, vertical));
 	horizontal += 40;
 	listaPedido.add(new PedidoAImprimir1("Prec", horizontal, vertical));
@@ -159,14 +159,16 @@ public void imprimirDetalleVenta(List<DetalleVenta> listaDetalle) {
 	
 	for (DetalleVenta d : listaDetalle) {
 		
-		nombreProducto = d.getProductosVenta().getNombrecorto(); 
-		if(nombreProducto.length() > 10) {
-nombreProducto = nombreProducto.substring(0,8); 
+		nombreProducto = d.getProductosVenta().getNombrecorto();
+		
+		if(nombreProducto.length() > 8) {  
+nombreProducto = nombreProducto.substring(0,8);
+
 		}
 		/**/
 		horizontal = horizontalInicial;
 		listaPedido.add(new PedidoAImprimir1(nombreProducto, horizontal, vertical));
-		horizontal += 60;
+		horizontal += 65;
 		listaPedido.add(new PedidoAImprimir1(formatearNumero(d.getCantidad().toString()), horizontal, vertical));
 		horizontal += 40;
 		listaPedido.add(new PedidoAImprimir1(formatearNumero(d.getCosto().toString()).toString(), horizontal, vertical));

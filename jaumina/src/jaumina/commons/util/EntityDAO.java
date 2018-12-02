@@ -71,6 +71,7 @@ Persona buscarPersonaPorId(Long id) throws Exception;
 List<Persona> listarPersonas() throws Exception;
 List<Persona> listarPersonasPorNombres(String nombres) throws Exception;
 public List<Persona> listarPersonasClientesActivosPorNombres(String nombres) throws Exception;
+public List<Persona> listarClientesActivosPorNombreOApellido(String nombreOApellido) throws Exception;
 List<Persona> listarPersonasPorNroDocumento(String nroDocumento) throws Exception;
 Persona iniciarSesion(Persona persona);
 Persona buscarPersonaPorNombre_corto(String nombre_corto) throws Exception;

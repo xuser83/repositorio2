@@ -39,7 +39,7 @@ public class DetalleVenta implements Serializable {
 	
 	private Integer costo;
 	
-	private String salsa;
+ 	private String salsa;
 
 	@Transient
 	private String eliminado;

@@ -2,7 +2,11 @@
 
 1- Primero siempre hacer una copia del proyecto.
 
-* comment commit: productosVentaBean.productosVentaSeleccionado.activo - persona.activo
+* comment commit: 	* personarn.listarClientesActivosPorNombreOApellido
+					*  registroventas.entregardetalle
+					* nombre producto.length al imprimir
+					* si se elimina un producto, igual sale en la entrega
+** productosVentaBean.productosVentaSeleccionado.activo - persona.activo
 
 * trabajar por la propiedad delivery en venta y entregarventa
 * En la pc de carlos hacer backup de la db.
